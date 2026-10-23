@@ -1,0 +1,28 @@
++ run_id:33: id_arg '' a-b
++ id_arg:1475: local free=
++ id_arg:1475: shift
++ id_arg:1475: IDSHIFT=0
++ id_arg:1476: [[ 1 -eq 0 ]]
++ id_arg:1476: [[ a-b == -* ]]
++ id_arg:1476: [[ -n '' ]]
+++ id_arg:1478: resolve_id a-b
+++ resolve_id:1462: local a=a-b r
+++ resolve_id:1463: [[ -z a-b ]]
+++ resolve_id:1467: [[ a-b == *#* ]]
+++ resolve_id:1468: [[ -f a-b/.moj-id ]]
++++ resolve_id:1469: pkg_root
++++ pkg_root:1453: local d
+++++ pkg_root:1453: cd .
+++++ pkg_root:1453: pwd -P
++++ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/pkg
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/pkg/.moj-id ]]
++++ pkg_root:1455: printf %s /tmp/tmp.jKJGnL9nFU/pkg
++++ pkg_root:1455: return 0
+++ resolve_id:1469: r=/tmp/tmp.jKJGnL9nFU/pkg
++++ resolve_id:1470: jq -r '.repo // empty' /tmp/tmp.jKJGnL9nFU/pkg/.moj-id
+++ resolve_id:1470: printf %s#%s org a-b
++ id_arg:1478: ID=org#a-b
++ id_arg:1478: IDSHIFT=1
++ id_arg:1479: [[ org#a-b == *#* ]]
++ run_id:33: set +x

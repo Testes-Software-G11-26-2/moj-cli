@@ -1,0 +1,73 @@
++ run_id:33: id_arg '^(on|off)$' on
++ id_arg:1475: local 'free=^(on|off)$'
++ id_arg:1475: shift
++ id_arg:1475: IDSHIFT=0
++ id_arg:1476: [[ 1 -eq 0 ]]
++ id_arg:1476: [[ on == -* ]]
++ id_arg:1476: [[ -n ^(on|off)$ ]]
++ id_arg:1476: [[ on =~ ^(on|off)$ ]]
++ id_arg:1476: pkg_root
++ pkg_root:1453: local d
+++ pkg_root:1453: cd .
+++ pkg_root:1453: pwd -P
++ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/fora
++ pkg_root:1454: :
++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/fora/.moj-id ]]
++ pkg_root:1456: [[ /tmp/tmp.jKJGnL9nFU/fora == / ]]
++ pkg_root:1456: [[ -z /tmp/tmp.jKJGnL9nFU/fora ]]
+++ pkg_root:1457: dirname /tmp/tmp.jKJGnL9nFU/fora
++ pkg_root:1457: d=/tmp/tmp.jKJGnL9nFU
++ pkg_root:1454: :
++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/.moj-id ]]
++ pkg_root:1456: [[ /tmp/tmp.jKJGnL9nFU == / ]]
++ pkg_root:1456: [[ -z /tmp/tmp.jKJGnL9nFU ]]
+++ pkg_root:1457: dirname /tmp/tmp.jKJGnL9nFU
++ pkg_root:1457: d=/tmp
++ pkg_root:1454: :
++ pkg_root:1455: [[ -f /tmp/.moj-id ]]
++ pkg_root:1456: [[ /tmp == / ]]
++ pkg_root:1456: [[ -z /tmp ]]
+++ pkg_root:1457: dirname /tmp
++ pkg_root:1457: d=/
++ pkg_root:1454: :
++ pkg_root:1455: [[ -f //.moj-id ]]
++ pkg_root:1456: [[ / == / ]]
++ pkg_root:1456: return 1
+++ id_arg:1478: resolve_id on
+++ resolve_id:1462: local a=on r
+++ resolve_id:1463: [[ -z on ]]
+++ resolve_id:1467: [[ on == *#* ]]
+++ resolve_id:1468: [[ -f on/.moj-id ]]
++++ resolve_id:1469: pkg_root
++++ pkg_root:1453: local d
+++++ pkg_root:1453: cd .
+++++ pkg_root:1453: pwd -P
++++ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/fora
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/fora/.moj-id ]]
++++ pkg_root:1456: [[ /tmp/tmp.jKJGnL9nFU/fora == / ]]
++++ pkg_root:1456: [[ -z /tmp/tmp.jKJGnL9nFU/fora ]]
+++++ pkg_root:1457: dirname /tmp/tmp.jKJGnL9nFU/fora
++++ pkg_root:1457: d=/tmp/tmp.jKJGnL9nFU
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/.moj-id ]]
++++ pkg_root:1456: [[ /tmp/tmp.jKJGnL9nFU == / ]]
++++ pkg_root:1456: [[ -z /tmp/tmp.jKJGnL9nFU ]]
+++++ pkg_root:1457: dirname /tmp/tmp.jKJGnL9nFU
++++ pkg_root:1457: d=/tmp
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f /tmp/.moj-id ]]
++++ pkg_root:1456: [[ /tmp == / ]]
++++ pkg_root:1456: [[ -z /tmp ]]
+++++ pkg_root:1457: dirname /tmp
++++ pkg_root:1457: d=/
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f //.moj-id ]]
++++ pkg_root:1456: [[ / == / ]]
++++ pkg_root:1456: return 1
+++ resolve_id:1469: r=
+++ resolve_id:1469: die ''\''on'\'' não diz a org: use <org>#on (ou rode dentro da pasta de um problema, que dá a org).'
+++ die:18: printf '%s: %s\n' moj ''\''on'\'' não diz a org: use <org>#on (ou rode dentro da pasta de um problema, que dá a org).'
+++ die:18: exit 1
++ id_arg:1478: ID=
++ id_arg:1478: exit 1

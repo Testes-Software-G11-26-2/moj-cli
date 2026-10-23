@@ -1,0 +1,17 @@
++ run_id:33: id_arg '' '#p'
++ id_arg:1475: local free=
++ id_arg:1475: shift
++ id_arg:1475: IDSHIFT=0
++ id_arg:1476: [[ 1 -eq 0 ]]
++ id_arg:1476: [[ #p == -* ]]
++ id_arg:1476: [[ -n '' ]]
+++ id_arg:1478: resolve_id '#p'
+++ resolve_id:1462: local a=#p r
+++ resolve_id:1463: [[ -z #p ]]
+++ resolve_id:1467: [[ #p == *#* ]]
+++ resolve_id:1467: printf %s '#p'
+++ resolve_id:1467: return 0
++ id_arg:1478: ID='#p'
++ id_arg:1478: IDSHIFT=1
++ id_arg:1479: [[ #p == *#* ]]
++ run_id:33: set +x

@@ -1,0 +1,18 @@
++ run_id:33: id_arg '' ../pkg2
++ id_arg:1475: local free=
++ id_arg:1475: shift
++ id_arg:1475: IDSHIFT=0
++ id_arg:1476: [[ 1 -eq 0 ]]
++ id_arg:1476: [[ ../pkg2 == -* ]]
++ id_arg:1476: [[ -n '' ]]
+++ id_arg:1478: resolve_id ../pkg2
+++ resolve_id:1462: local a=../pkg2 r
+++ resolve_id:1463: [[ -z ../pkg2 ]]
+++ resolve_id:1467: [[ ../pkg2 == *#* ]]
+++ resolve_id:1468: [[ -f ../pkg2/.moj-id ]]
+++ resolve_id:1468: jq -r '.id // empty' ../pkg2/.moj-id
+++ resolve_id:1468: return 0
++ id_arg:1478: ID=org2#p2
++ id_arg:1478: IDSHIFT=1
++ id_arg:1479: [[ org2#p2 == *#* ]]
++ run_id:33: set +x

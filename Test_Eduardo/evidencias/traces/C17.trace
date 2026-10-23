@@ -1,0 +1,17 @@
++ run_id:33: id_arg '' org#p9 on
++ id_arg:1475: local free=
++ id_arg:1475: shift
++ id_arg:1475: IDSHIFT=0
++ id_arg:1476: [[ 2 -eq 0 ]]
++ id_arg:1476: [[ org#p9 == -* ]]
++ id_arg:1476: [[ -n '' ]]
+++ id_arg:1478: resolve_id org#p9
+++ resolve_id:1462: local a=org#p9 r
+++ resolve_id:1463: [[ -z org#p9 ]]
+++ resolve_id:1467: [[ org#p9 == *#* ]]
+++ resolve_id:1467: printf %s org#p9
+++ resolve_id:1467: return 0
++ id_arg:1478: ID=org#p9
++ id_arg:1478: IDSHIFT=1
++ id_arg:1479: [[ org#p9 == *#* ]]
++ run_id:33: set +x

@@ -1,0 +1,41 @@
++ run_id:33: id_arg ''
++ id_arg:1475: local free=
++ id_arg:1475: shift
++ id_arg:1475: IDSHIFT=0
++ id_arg:1476: [[ 0 -eq 0 ]]
+++ id_arg:1477: resolve_id
+++ resolve_id:1462: local a= r
+++ resolve_id:1463: [[ -z '' ]]
++++ resolve_id:1464: pkg_root
++++ pkg_root:1453: local d
+++++ pkg_root:1453: cd .
+++++ pkg_root:1453: pwd -P
++++ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/fora
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/fora/.moj-id ]]
++++ pkg_root:1456: [[ /tmp/tmp.jKJGnL9nFU/fora == / ]]
++++ pkg_root:1456: [[ -z /tmp/tmp.jKJGnL9nFU/fora ]]
+++++ pkg_root:1457: dirname /tmp/tmp.jKJGnL9nFU/fora
++++ pkg_root:1457: d=/tmp/tmp.jKJGnL9nFU
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/.moj-id ]]
++++ pkg_root:1456: [[ /tmp/tmp.jKJGnL9nFU == / ]]
++++ pkg_root:1456: [[ -z /tmp/tmp.jKJGnL9nFU ]]
+++++ pkg_root:1457: dirname /tmp/tmp.jKJGnL9nFU
++++ pkg_root:1457: d=/tmp
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f /tmp/.moj-id ]]
++++ pkg_root:1456: [[ /tmp == / ]]
++++ pkg_root:1456: [[ -z /tmp ]]
+++++ pkg_root:1457: dirname /tmp
++++ pkg_root:1457: d=/
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f //.moj-id ]]
++++ pkg_root:1456: [[ / == / ]]
++++ pkg_root:1456: return 1
+++ resolve_id:1464: r=
+++ resolve_id:1464: die 'falta o <id>: rode dentro da pasta de um problema (a que tem o .moj-id) ou passe <org>#<prob>.'
+++ die:18: printf '%s: %s\n' moj 'falta o <id>: rode dentro da pasta de um problema (a que tem o .moj-id) ou passe <org>#<prob>.'
+++ die:18: exit 1
++ id_arg:1477: ID=
++ id_arg:1477: exit 1
