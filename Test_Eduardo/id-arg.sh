@@ -1,0 +1,95 @@
+#!/bin/bash
+# id-arg.sh — M10 `id_arg` (moj): de onde sai o <org>#<prob> do comando. Testes de unidade derivados por
+# caixa-preta (partições + limites) e caixa-branca (decisões + MC/DC de D1 = A ∨ B ∨ (C ∧ D ∧ E)).
+# C01..C19 entram no exit code; H1..H4 são hipóteses de defeito (XFAIL: o esperado é falharem hoje).
+# Sem rede. Uso: bash Test_Eduardo/id-arg.sh [--trace]  (--trace grava evidencias/traces/<ID>.trace)
+set -u
+HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"; CLI="$(cd "$HERE/.." && pwd)"
+TRACE=0; [[ "${1:-}" == --trace ]] && TRACE=1
+TRDIR="$HERE/evidencias/traces"; (( TRACE )) && mkdir -p "$TRDIR"
+T="$(mktemp -d)"; trap 'rm -rf "$T"' EXIT
+T="$(cd "$T" && pwd -P)"    # pkg_root usa pwd -P: a fixture tem de estar no caminho físico
+MOJ_CLI_LIB_ONLY=1 MOJ_CONFIG_DIR="$T/cfg" source "$CLI/moj" 2>/dev/null
+set +e; set +o pipefail
+type id_arg >/dev/null 2>&1 || { echo "FAIL: id_arg não carregou"; exit 1; }
+command -v jq >/dev/null || { echo "FAIL: resolve_id precisa do jq"; exit 1; }
+pass=0; fail=0; xfail=0; xpass=0
+
+# ---- fixture ----------------------------------------------------------------------------------------
+mkdir -p "$T/pkg/sub" "$T/pkg2" "$T/semid" "$T/semrepo" "$T/fora"
+printf '{"id":"org#p1","repo":"org"}'   > "$T/pkg/.moj-id"
+printf '{"id":"org2#p2","repo":"org2"}' > "$T/pkg2/.moj-id"
+printf '{"repo":"org3"}'                > "$T/semid/.moj-id"
+printf '{"id":"x#y"}'                   > "$T/semrepo/.moj-id"
+( cd "$T/fora" && pkg_root >/dev/null ) && {
+  echo "ABORT: pkg_root achou um .moj-id acima de $T/fora — a fixture 'fora' não está fora de um pacote"; exit 1; }
+
+# run_id <ID> <dir_absoluto> <free> [args...] -> OUT (ID|IDSHIFT), ERR, RC. Subshell: id_arg/die dão exit 1.
+run_id(){ local cid="$1" dir="$2" free="$3"; shift 3
+  ( cd "$dir" || exit 99
+    if (( TRACE )); then
+      exec 9>"$TRDIR/$cid.trace"; BASH_XTRACEFD=9; PS4='+ ${FUNCNAME[0]:-main}:${LINENO}: '; set -x
+    fi
+    id_arg "$free" "$@" && { { set +x; } 2>/dev/null; printf '%s|%s' "$ID" "$IDSHIFT"; }
+  ) >"$T/out" 2>"$T/err"
+  RC=$?; OUT="$(<"$T/out")"; ERR="$(<"$T/err")"; }
+
+obtido(){ if (( RC == 0 )); then printf 'rc0 %s' "$OUT"; else printf 'rc%s stderr="%s"' "$RC" "$ERR"; fi; }
+
+# caso <C|H> <ID> <dir> <free> <rc esperado> <esperado> [args...]
+#   rc 0: <esperado> é o "ID|IDSHIFT"; rc 1: <esperado> é um trecho do stderr ('' = só o rc).
+caso(){ local k="$1" cid="$2" dir="$3" free="$4" erc="$5" exp="$6"; shift 6
+  run_id "$cid" "$T/$dir" "$free" "$@"
+  local ok=1
+  (( RC == erc )) || ok=0
+  if (( ok )); then
+    if (( erc == 0 )); then [[ "$OUT" == "$exp" ]] || ok=0
+    else [[ -z "$exp" || "$ERR" == *"$exp"* ]] || ok=0; fi
+  fi
+  local got; got="$(obtido)"
+  if [[ "$k" == C ]]; then
+    if (( ok )); then echo "  ok: $cid — obtido: $got"; ((pass++))
+    else echo "  FAIL: $cid — esperado: rc$erc ${exp} — obtido: $got"; ((fail++)); fi
+  else
+    if (( ok )); then echo "  XPASS: $cid — obtido: $got"; ((xpass++))
+    else echo "  XFAIL: $cid — esperado: rc$erc ${exp} — obtido: $got"; ((xfail++)); fi
+  fi; }
+
+R='^(on|off)$'   # a regex do `moj public`
+
+echo "== caixa-preta: sem argumento / opção inicial =="
+caso C C01 pkg     ''   0 'org#p1|0'
+caso C C02 pkg/sub ''   0 'org#p1|0'
+caso C C03 fora    ''   1 'falta o <id>'
+caso C C04 pkg     ''   0 'org#p1|0'       -x
+caso C C05 pkg     ''   0 'org#p1|0'       -
+caso C C06 pkg     ''   0 'org#a-b|1'      a-b
+
+echo "== caixa-preta: id explícito =="
+caso C C07 pkg     ''   0 'org#x|1'        x
+caso C C08 fora    ''   0 'org#p9|1'       'org#p9'
+caso C C09 fora    ''   1 'não diz a org'  x
+caso C C10 fora    ''   0 'org2#p2|1'      ../pkg2
+
+echo "== caixa-branca: MC/DC de (C ∧ D ∧ E) e limites da regex =="
+caso C C11 pkg     "$R" 0 'org#p1|0'       on
+caso C C12 pkg     ''   0 'org#on|1'       on
+caso C C13 pkg     "$R" 0 'org#foo|1'      foo
+caso C C14 fora    "$R" 1 'não diz a org'  on
+caso C C15 pkg     "$R" 0 'org#ON|1'       ON
+caso C C16 pkg     "$R" 0 'org#onn|1'      onn
+caso C C17 pkg     ''   0 'org#p9|1'       'org#p9' on
+
+echo "== caixa-branca: validação final D4 =="
+caso C C18 semid   ''   1 'id inválido'
+caso C C19 fora    ''   1 'id inválido'    ../semid
+
+echo "== hipóteses de defeito (XFAIL): contrato <org>#<prob> com org e prob não vazios =="
+caso H H1 fora     ''   1 'id inválido'    '#'
+caso H H2 fora     ''   1 'id inválido'    'org#'
+caso H H3 fora     ''   1 'id inválido'    '#p'
+caso H H4 semrepo  ''   1 ''               foo
+
+(( xpass )) && echo "  ($xpass hipótese(s) XPASS: o defeito não se manifestou)"
+echo; echo "RESULT: $pass passed, $fail failed, $xfail xfail"
+(( fail == 0 ))
