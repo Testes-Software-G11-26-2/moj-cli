@@ -1,0 +1,97 @@
++ rodar:31: gate /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g
++ gate:844: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g ok=1
++ gate:845: [[ -s /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/docs/enunciado.md ]]
++ gate:848: sample_off /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g
++ sample_off:842: local v
+++ sample_off:842: conf_get /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g SAMPLE
+++ conf_get:370: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g k=SAMPLE line
+++ conf_get:370: [[ -f /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/conf ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: [[ SAMPLE=yes == \S\A\M\P\L\E\=* ]]
+++ conf_get:370: line=yes
+++ conf_get:370: line=yes
+++ conf_get:370: printf %s yes
+++ conf_get:370: return 0
+++ sample_off:842: tr A-Z a-z
+++ sample_off:842: tr -d '[:space:]'
++ sample_off:842: v=yes
++ sample_off:843: [[ yes == no ]]
++ sample_off:843: [[ yes == n ]]
++ sample_off:843: [[ yes == nao ]]
++ sample_off:843: [[ yes == não ]]
++ sample_off:843: [[ yes == false ]]
++ sample_off:843: [[ yes == 0 ]]
+++ gate:850: find /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/tests/input -maxdepth 1 -name 'sample*'
+++ gate:850: wc -l
++ gate:850: [[ 0 -lt 1 ]]
++ gate:851: echo '  ⚠ sem exemplos: crie tests/input/sample1 e tests/output/sample1, ou, se exemplo não faz'
++ gate:852: echo '    sentido neste problema (função, interativo…), ponha SAMPLE=no no conf (moj edit → 8 → 6)'
++ gate:853: ok=0
++ gate:855: find /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/sols/good -maxdepth 1 -type f
++ gate:855: grep -q .
++ gate:856: [[ -f /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/tests/score ]]
++ gate:857: parallel_conf_gate /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g
++ parallel_conf_gate:879: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g ok=1 v
+++ parallel_conf_gate:880: conf_get /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g CPUNEEDED
+++ conf_get:370: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g k=CPUNEEDED line
+++ conf_get:370: [[ -f /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/conf ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: [[ SAMPLE=yes == \C\P\U\N\E\E\D\E\D\=* ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: return 0
++ parallel_conf_gate:880: v=
++ parallel_conf_gate:880: [[ -z '' ]]
+++ parallel_conf_gate:881: conf_get /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g SAMENUMA
+++ conf_get:370: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g k=SAMENUMA line
+++ conf_get:370: [[ -f /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/conf ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: [[ SAMPLE=yes == \S\A\M\E\N\U\M\A\=* ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: return 0
++ parallel_conf_gate:881: v=
++ parallel_conf_gate:881: [[ -z '' ]]
+++ parallel_conf_gate:882: conf_get /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g MAXPARALLELTESTS
+++ conf_get:370: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g k=MAXPARALLELTESTS line
+++ conf_get:370: [[ -f /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/conf ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: [[ SAMPLE=yes == \M\A\X\P\A\R\A\L\L\E\L\T\E\S\T\S\=* ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: return 0
++ parallel_conf_gate:882: v=
++ parallel_conf_gate:882: [[ -z '' ]]
+++ parallel_conf_gate:883: conf_get /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g ALLOWPARALLELTEST
+++ conf_get:370: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g k=ALLOWPARALLELTEST line
+++ conf_get:370: [[ -f /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/conf ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: [[ SAMPLE=yes == \A\L\L\O\W\P\A\R\A\L\L\E\L\T\E\S\T\=* ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: return 0
++ parallel_conf_gate:883: v=
++ parallel_conf_gate:883: [[ -z '' ]]
++ parallel_conf_gate:884: [[ 1 -eq 1 ]]
++ gate:858: function_conf_gate /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g
++ function_conf_gate:864: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g ok=1 v l c 'dirs= ' f
+++ function_conf_gate:865: conf_get /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g FUNCTION_LANGS
+++ conf_get:370: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g k=FUNCTION_LANGS line
+++ conf_get:370: [[ -f /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/g/conf ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: [[ SAMPLE=yes == \F\U\N\C\T\I\O\N\_\L\A\N\G\S\=* ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: return 0
+++ function_conf_gate:865: tr A-Z a-z
++ function_conf_gate:865: v=
++ function_conf_gate:865: v=
++ function_conf_gate:866: [[ -n '' ]]
++ function_conf_gate:866: return 0
++ gate:859: [[ 0 -eq 1 ]]

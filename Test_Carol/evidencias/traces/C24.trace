@@ -1,0 +1,21 @@
++ rodar:31: sample_off /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/p
++ sample_off:842: local v
+++ sample_off:842: conf_get /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/p SAMPLE
+++ conf_get:370: local d=/c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/p k=SAMPLE line
+++ conf_get:370: [[ -f /c/Users/Usuário/AppData/Local/Temp/tmp.UiUdo7dHAm/p/conf ]]
+++ conf_get:370: IFS=
+++ conf_get:370: read -r line
+++ conf_get:370: [[ SAMPLE=no1 == \S\A\M\P\L\E\=* ]]
+++ conf_get:370: line=no1
+++ conf_get:370: line=no1
+++ conf_get:370: printf %s no1
+++ conf_get:370: return 0
+++ sample_off:842: tr A-Z a-z
+++ sample_off:842: tr -d '[:space:]'
++ sample_off:842: v=no1
++ sample_off:843: [[ no1 == no ]]
++ sample_off:843: [[ no1 == n ]]
++ sample_off:843: [[ no1 == nao ]]
++ sample_off:843: [[ no1 == não ]]
++ sample_off:843: [[ no1 == false ]]
++ sample_off:843: [[ no1 == 0 ]]
