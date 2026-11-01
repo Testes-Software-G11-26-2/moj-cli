@@ -247,5 +247,3 @@ O oráculo é o requisito (seção 2), e não o código. Os dois casos falham ho
 
 - **Ferramenta:** Claude (chat).
 - **O que foi feito com apoio da IA:** a análise do código de `sample_off` e `conf_get`, a derivação das partições, dos valores-limite e dos pares MC/DC, a escrita do script `sample-off.sh` e o rascunho deste relatório.
-- **Revisão e decisões (Carol):** `<descreva o que você conferiu e decidiu: escolha do módulo M04, execução dos testes na sua máquina, prints, conferência dos resultados>`.
-- **Autorização:** `<confirme se a professora autorizou o uso de IA neste trabalho; o relatório do Eduardo declara isso>`.
