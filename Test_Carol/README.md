@@ -232,7 +232,7 @@ O oráculo é o requisito (seção 2), e não o código. Os dois casos falham ho
 
   Testei essa alteração numa cópia da função: a chave da última linha passa a ser lida e o caso normal continua igual. Este defeito é do **M03 (`conf_get`)**, então combine com quem fez o M03 para o relatório dele dizer a mesma coisa.
 
-![H2 — SAMPLE=no sem newline final](evidencias/img/xfail-H2.png)
+![H2 — SAMPLE=no sem newline final](evidencias/img/xfail-H1.png)
 
 ## 7. Lacunas e limitações
 
