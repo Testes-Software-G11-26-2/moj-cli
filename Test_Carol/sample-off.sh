@@ -12,10 +12,11 @@ T="$(mktemp -d)"; trap 'rm -rf "$T"' EXIT
 T="$(cd "$T" && pwd -P)"
 command -v jq >/dev/null || { echo "FAIL: o moj precisa do jq para carregar (instale o jq)"; exit 1; }
 MOJ_CLI_LIB_ONLY=1 MOJ_CONFIG_DIR="$T/cfg" source "$CLI/moj" 2>/dev/null
+source "$HERE/sample-off-tdd.sh"
 set +e; set +o pipefail
 type sample_off >/dev/null 2>&1 || { echo "FAIL: sample_off não carregou"; exit 1; }
 type gate >/dev/null 2>&1 || { echo "FAIL: gate não carregou"; exit 1; }
-pass=0; fail=0; xfail=0; xpass=0
+pass=0; fail=0
 
 # ---- fixture ----------------------------------------------------------------------------------------
 P="$T/p"; G="$T/g"; mkdir -p "$P" "$G/docs" "$G/tests/input" "$G/tests/output" "$G/sols/good"
@@ -36,13 +37,14 @@ poe_conf(){ if [[ "$1" == @ausente ]]; then rm -f "$2/conf"; else printf '%b' "$
 
 # registra o resultado: reg <C|H> <ID> <ok 0/1> <esperado> <obtido>
 reg(){ local k="$1" cid="$2" ok="$3" exp="$4" got="$5"
-  if [[ "$k" == C ]]; then
-    if (( ok )); then echo "  ok: $cid — obtido: $got"; ((pass++))
-    else echo "  FAIL: $cid — esperado: $exp — obtido: $got"; ((fail++)); fi
+  if (( ok )); then
+    echo "  ok: $cid — obtido: $got"
+    ((pass++))
   else
-    if (( ok )); then echo "  XPASS: $cid — obtido: $got"; ((xpass++))
-    else echo "  XFAIL: $cid — esperado: $exp — obtido: $got"; ((xfail++)); fi
-  fi; }
+    echo "  FAIL: $cid — esperado: $exp — obtido: $got"
+    ((fail++))
+  fi
+}
 
 # caso <C|H> <ID> <rc esperado 0|1> <conf|@ausente>
 #   chama sample_off direto; o rc é o oráculo e a função não pode imprimir nada
@@ -106,10 +108,9 @@ echo "== caixa-branca: integração com o gate (D1 verdadeira e falsa, com asser
 caso_gate C C31 0 'SAMPLE=no'    'SAMPLE=no\n'
 caso_gate C C32 1 'sem exemplos' 'SAMPLE=yes\n'
 
-echo "== defeitos observados (XFAIL): requisito 'ignora caixa e espaços' e leitura do conf =="
-caso H H1 0 'SAMPLE=NÃO\n'
-caso H H2 0 'SAMPLE=no'
+echo "== regressões TDD: caixa acentuada e última linha sem newline =="
+caso C H1 0 'SAMPLE=NÃO\n'
+caso C H2 0 'SAMPLE=no'
 
-(( xpass )) && echo "  ($xpass defeito(s) em XPASS: o defeito não se manifestou — troque H por C)"
-echo; echo "RESULT: $pass passed, $fail failed, $xfail xfail"
+echo; echo "RESULT: $pass passed, $fail failed"
 (( fail == 0 ))
