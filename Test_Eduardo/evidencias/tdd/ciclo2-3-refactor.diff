@@ -1,0 +1,24 @@
+diff --git a/moj b/moj
+index e6b7b59..38bdd7d 100755
+--- a/moj
++++ b/moj
+@@ -1471,6 +1471,10 @@ resolve_id(){ local a="${1:-}" r o
+   [[ -n "$o" ]] || die "'$a' não diz a org: o .moj-id de $r não tem \"repo\"; use <org>#$a."
+   printf '%s#%s' "$o" "$a"
+ }
++# id_completo <id> -> 0 se o id tem a forma <org>#<prob> com org E problema NÃO vazios (o contrato do die abaixo).
++# `?*#?*`: pelo menos 1 caractere antes e 1 depois de um '#'. Barra '#', 'org#' e '#p' (vindos do argumento, do
++# .id da pasta ou de uma pasta clonada).
++id_completo(){ [[ "$1" == ?*#?* ]]; }
+ # id_arg <regex-do-que-NÃO-é-id> "$@" -> define ID e IDSHIFT (1 = o 1º argumento ERA o id; o chamador faz
+ # o shift). O id é IMPLÍCITO (vem da pasta) quando não há argumento, quando o 1º é uma opção (-…) ou quando
+ # ele casa a regex E estamos numa pasta de problema (ex.: `moj public on`, `moj restore <sha>`).
+@@ -1478,7 +1482,7 @@ id_arg(){ local free="$1"; shift; IDSHIFT=0
+   if [[ $# -eq 0 || "$1" == -* ]] || { [[ -n "$free" && "$1" =~ $free ]] && pkg_root >/dev/null; }; then
+     ID="$(resolve_id)" || exit 1
+   else ID="$(resolve_id "$1")" || exit 1; IDSHIFT=1; fi
+-  [[ "$ID" == *#* ]] || die "id inválido: '$ID' (esperado <org>#<prob>)"
++  id_completo "$ID" || die "id inválido: '$ID' (esperado <org>#<prob>)"
+ }
+ 
+ # ---- linha de base local: o que o servidor tinha no último clone/pull/push --------------------------
