@@ -6,10 +6,10 @@
 |---|---|
 | Método | M04 `sample_off`. Também exercita a função que ele chama, `conf_get`, e o `gate`, que o usa |
 | Arquivo | `moj`: `sample_off` nas linhas 842–843 (`conf_get` na linha 370, `gate` logo depois de `sample_off`) |
-| Commit | `<hash do git rev-parse --short HEAD>` (base: `716ce0c`, `master` do repositório) |
+| Commit |  08782ef |
 | Branch | `test/carol-m04` |
-| Ferramentas | `<bash --version \| head -1>` · `<jq --version>` · `<sistema operacional: Git Bash no Windows / WSL Ubuntu>` |
-| Data | `<2026-11-01 da execução que gerou as evidências>` |
+| Ferramentas | GNU bash, version 5.2.37 · jq-1.8.2 · Windows 11 (Git Bash/MINGW64) |
+| Data | 2026-11-01 |
 | Script | `Test_Carol/sample-off.sh`: teste de unidade, offline, com fixture em `mktemp -d` |
 
 Para reproduzir, rode na raiz do `moj-cli`:
@@ -135,7 +135,7 @@ O xtrace mostra **cada condição** do OR em uma linha própria (`sample_off:843
 
 ## 5. Resultados
 
-Execução de `<2026-11-01>` (`evidencias/saida-<2026-11-01>.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
+Execução de 2026-11-01 (`evidencias/saida-<2026-11-01>.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
 
 | ID | conf | esperado | obtido | status | critério |
 |---|---|---|---|---|---|
