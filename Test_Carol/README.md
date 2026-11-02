@@ -9,7 +9,7 @@
 | Commit | `<hash do git rev-parse --short HEAD>` (base: `716ce0c`, `master` do repositório) |
 | Branch | `test/carol-m04` |
 | Ferramentas | `<bash --version \| head -1>` · `<jq --version>` · `<sistema operacional: Git Bash no Windows / WSL Ubuntu>` |
-| Data | `<AAAA-MM-DD da execução que gerou as evidências>` |
+| Data | `<2026-11-01 da execução que gerou as evidências>` |
 | Script | `Test_Carol/sample-off.sh`: teste de unidade, offline, com fixture em `mktemp -d` |
 
 Para reproduzir, rode na raiz do `moj-cli`:
@@ -135,7 +135,7 @@ O xtrace mostra **cada condição** do OR em uma linha própria (`sample_off:843
 
 ## 5. Resultados
 
-Execução de `<AAAA-MM-DD>` (`evidencias/saida-<AAAA-MM-DD>.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
+Execução de `<2026-11-01>` (`evidencias/saida-<2026-11-01>.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
 
 | ID | conf | esperado | obtido | status | critério |
 |---|---|---|---|---|---|
@@ -174,7 +174,6 @@ Execução de `<AAAA-MM-DD>` (`evidencias/saida-<AAAA-MM-DD>.txt`): **`RESULT: 3
 | H1 | `SAMPLE=NÃO` | rc0 | rc1 | XFAIL | defeito H1 |
 | H2 | `SAMPLE=no` sem newline final | rc0 | rc1 | XFAIL | defeito H2 |
 
-Confira os valores da coluna "obtido" com o arquivo `evidencias/saida-<data>.txt` antes de entregar.
 
 ![Execução completa — 32 passed, 0 failed, 2 xfail](evidencias/img/execucao-completa.png)
 
