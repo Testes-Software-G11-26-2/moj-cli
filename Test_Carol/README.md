@@ -135,7 +135,7 @@ O xtrace mostra **cada condição** do OR em uma linha própria (`sample_off:843
 
 ## 5. Resultados
 
-Execução de 2026-11-01 (`evidencias/saida-<2026-11-01>.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
+Execução de 2026-11-01 (`evidencias/saida-2026-11-01.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
 
 | ID | conf | esperado | obtido | status | critério |
 |---|---|---|---|---|---|
