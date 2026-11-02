@@ -1,0 +1,45 @@
+== caixa-preta P1: os seis sinônimos de falso (forma canônica) — aceitos ==
+  ok: C01 — obtido: rc0 conf="SAMPLE=no\n"
+  ok: C02 — obtido: rc0 conf="SAMPLE=n\n"
+  ok: C03 — obtido: rc0 conf="SAMPLE=nao\n"
+  ok: C04 — obtido: rc0 conf="SAMPLE=não\n"
+  ok: C05 — obtido: rc0 conf="SAMPLE=false\n"
+  ok: C06 — obtido: rc0 conf="SAMPLE=0\n"
+== caixa-preta P2: caixa e espaços são ignorados — aceitos ==
+  ok: C07 — obtido: rc0 conf="SAMPLE=NO\n"
+  ok: C08 — obtido: rc0 conf="SAMPLE=FaLsE\n"
+  ok: C09 — obtido: rc0 conf="SAMPLE= No \n"
+  ok: C10 — obtido: rc0 conf="SAMPLE=n o\n"
+  ok: C11 — obtido: rc0 conf="SAMPLE=\tfalse\t\n"
+== caixa-preta P3: afirmativos e desconhecidos — recusados ==
+  ok: C12 — obtido: rc1 conf="SAMPLE=yes\n"
+  ok: C13 — obtido: rc1 conf="SAMPLE=y\n"
+  ok: C14 — obtido: rc1 conf="SAMPLE=sim\n"
+  ok: C15 — obtido: rc1 conf="SAMPLE=true\n"
+  ok: C16 — obtido: rc1 conf="SAMPLE=1\n"
+  ok: C17 — obtido: rc1 conf="SAMPLE=abc\n"
+== caixa-preta P4: chave ausente — recusada ==
+  ok: C18 — obtido: rc1 conf="CPUNEEDED=4\n"
+  ok: C19 — obtido: rc1 conf="@ausente"
+== caixa-preta: valores-limite ==
+  ok: C20 — obtido: rc1 conf="SAMPLE=\n"
+  ok: C21 — obtido: rc1 conf="SAMPLE=   \n"
+  ok: C22 — obtido: rc1 conf="SAMPLE=00\n"
+  ok: C23 — obtido: rc1 conf="SAMPLE=-0\n"
+  ok: C24 — obtido: rc1 conf="SAMPLE=no1\n"
+  ok: C25 — obtido: rc1 conf="SAMPLE=nop\n"
+  ok: C26 — obtido: rc1 conf="SAMPLE=fals\n"
+== caixa-preta P5: chave só com o mesmo prefixo; chave duplicada ==
+  ok: C27 — obtido: rc1 conf="SAMPLES=no\n"
+  ok: C28 — obtido: rc1 conf="SAMPLE=yes\nSAMPLE=no\n"
+  ok: C29 — obtido: rc0 conf="SAMPLE=no\nSAMPLE=yes\n"
+== caixa-branca: MC/DC de D1 = C1 ∨ C2 ∨ C3 ∨ C4 ∨ C5 ∨ C6 (Ci: v == literal i) ==
+  ok: C30 — obtido: rc1 conf="SAMPLE=xyz\n"
+== caixa-branca: integração com o gate (D1 verdadeira e falsa, com assert no efeito) ==
+  ok: C31 — obtido: rc0 conf="SAMPLE=no\n"
+  ok: C32 — obtido: rc1 conf="SAMPLE=yes\n"
+== defeitos observados (XFAIL): requisito 'ignora caixa e espaços' e leitura do conf ==
+  XFAIL: H1 — esperado: rc0 — obtido: rc1 conf="SAMPLE=NÃO\n"
+  XFAIL: H2 — esperado: rc0 — obtido: rc1 conf="SAMPLE=no"
+
+RESULT: 32 passed, 0 failed, 2 xfail
