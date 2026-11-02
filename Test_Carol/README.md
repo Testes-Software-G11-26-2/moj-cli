@@ -175,7 +175,8 @@ Execução de `<2026-11-01>` (`evidencias/saida-<2026-11-01>.txt`): **`RESULT: 3
 | H2 | `SAMPLE=no` sem newline final | rc0 | rc1 | XFAIL | defeito H2 |
 
 
-![Execução completa — 32 passed, 0 failed, 2 xfail](evidencias/img/execucao-completa.png)
+![Execução completa — 32 passed, 0 failed, 2 xfail](evidencias/img/execucao-completa.png) (evidencias/img/execucao-completa2.png)
+
 
 ### Traces dos pares MC/DC
 
