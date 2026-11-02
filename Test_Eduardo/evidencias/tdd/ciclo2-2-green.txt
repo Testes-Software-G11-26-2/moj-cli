@@ -1,0 +1,39 @@
+$ bash Test_Eduardo/id-arg.sh   # TDD ciclo 2 — GREEN (2026-11-02, commit base a3d81b9 + padrão ?*#?* no id_arg)
+== caixa-preta: sem argumento / opção inicial ==
+  ok: C01 — obtido: rc0 org#p1|0
+  ok: C02 — obtido: rc0 org#p1|0
+  ok: C03 — obtido: rc1 stderr="moj: falta o <id>: rode dentro da pasta de um problema (a que tem o .moj-id) ou passe <org>#<prob>."
+  ok: C04 — obtido: rc0 org#p1|0
+  ok: C05 — obtido: rc0 org#p1|0
+  ok: C06 — obtido: rc0 org#a-b|1
+== caixa-preta: id explícito ==
+  ok: C07 — obtido: rc0 org#x|1
+  ok: C08 — obtido: rc0 org#p9|1
+  ok: C09 — obtido: rc1 stderr="moj: 'x' não diz a org: use <org>#x (ou rode dentro da pasta de um problema, que dá a org)."
+  ok: C10 — obtido: rc0 org2#p2|1
+== caixa-branca: MC/DC de (C ∧ D ∧ E) e limites da regex ==
+  ok: C11 — obtido: rc0 org#p1|0
+  ok: C12 — obtido: rc0 org#on|1
+  ok: C13 — obtido: rc0 org#foo|1
+  ok: C14 — obtido: rc1 stderr="moj: 'on' não diz a org: use <org>#on (ou rode dentro da pasta de um problema, que dá a org)."
+  ok: C15 — obtido: rc0 org#ON|1
+  ok: C16 — obtido: rc0 org#onn|1
+  ok: C17 — obtido: rc0 org#p9|1
+== caixa-branca: validação final D4 ==
+  ok: C18 — obtido: rc1 stderr="moj: id inválido: '' (esperado <org>#<prob>)"
+  ok: C19 — obtido: rc1 stderr="moj: id inválido: '' (esperado <org>#<prob>)"
+== TDD ciclo 1: nome sem org numa pasta cujo .moj-id não diz a org (ex-XFAIL H4 + T1..T3) ==
+  ok: H4 — obtido: rc1 stderr="moj: 'foo' não diz a org: o .moj-id de /tmp/tmp.obd0bpGTp9/semrepo não tem "repo"; use <org>#foo."
+  ok: T1 — obtido: rc1 stderr="moj: 'foo' não diz a org: o .moj-id de /tmp/tmp.obd0bpGTp9/repovazio não tem "repo"; use <org>#foo."
+  ok: T2 — obtido: rc1 stderr="moj: 'foo' não diz a org: o .moj-id de /tmp/tmp.obd0bpGTp9/reponull não tem "repo"; use <org>#foo."
+  ok: T3 — obtido: rc0 x#y|0
+== TDD ciclo 2: o id final tem org E problema não vazios (ex-XFAIL H1..H3 + T4..T6) ==
+  ok: H1 — obtido: rc1 stderr="moj: id inválido: '#' (esperado <org>#<prob>)"
+  ok: H2 — obtido: rc1 stderr="moj: id inválido: 'org#' (esperado <org>#<prob>)"
+  ok: H3 — obtido: rc1 stderr="moj: id inválido: '#p' (esperado <org>#<prob>)"
+  ok: T4 — obtido: rc1 stderr="moj: id inválido: '#p' (esperado <org>#<prob>)"
+  ok: T5 — obtido: rc1 stderr="moj: id inválido: 'org#' (esperado <org>#<prob>)"
+  ok: T6 — obtido: rc0 a#b|1
+
+RESULT: 29 passed, 0 failed, 0 xfail
+exit=0

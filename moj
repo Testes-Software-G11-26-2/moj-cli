@@ -1478,7 +1478,7 @@ id_arg(){ local free="$1"; shift; IDSHIFT=0
   if [[ $# -eq 0 || "$1" == -* ]] || { [[ -n "$free" && "$1" =~ $free ]] && pkg_root >/dev/null; }; then
     ID="$(resolve_id)" || exit 1
   else ID="$(resolve_id "$1")" || exit 1; IDSHIFT=1; fi
-  [[ "$ID" == *#* ]] || die "id inválido: '$ID' (esperado <org>#<prob>)"
+  [[ "$ID" == ?*#?* ]] || die "id inválido: '$ID' (esperado <org>#<prob>)"
 }
 
 # ---- linha de base local: o que o servidor tinha no último clone/pull/push --------------------------
