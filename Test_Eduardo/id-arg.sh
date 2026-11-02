@@ -1,7 +1,8 @@
 #!/bin/bash
 # id-arg.sh — M10 `id_arg` (moj): de onde sai o <org>#<prob> do comando. Testes de unidade derivados por
 # caixa-preta (partições + limites) e caixa-branca (decisões + MC/DC de D1 = A ∨ B ∨ (C ∧ D ∧ E)).
-# C01..C19 entram no exit code; H1..H4 são hipóteses de defeito (XFAIL: o esperado é falharem hoje).
+# C01..C19, H4 e T1..T3 entram no exit code; H1..H3 são hipóteses de defeito (XFAIL: o esperado é falharem hoje).
+# TDD ciclo 1: H4 era XFAIL e virou caso obrigatório; T1..T3 nasceram no Red do ciclo.
 # Sem rede. Uso: bash Test_Eduardo/id-arg.sh [--trace]  (--trace grava evidencias/traces/<ID>.trace)
 set -u
 HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"; CLI="$(cd "$HERE/.." && pwd)"
@@ -21,6 +22,9 @@ printf '{"id":"org#p1","repo":"org"}'   > "$T/pkg/.moj-id"
 printf '{"id":"org2#p2","repo":"org2"}' > "$T/pkg2/.moj-id"
 printf '{"repo":"org3"}'                > "$T/semid/.moj-id"
 printf '{"id":"x#y"}'                   > "$T/semrepo/.moj-id"
+mkdir -p "$T/repovazio" "$T/reponull"
+printf '{"id":"x#y","repo":""}'       > "$T/repovazio/.moj-id"
+printf '{"id":"x#y","repo":null}'     > "$T/reponull/.moj-id"
 ( cd "$T/fora" && pkg_root >/dev/null ) && {
   echo "ABORT: pkg_root achou um .moj-id acima de $T/fora — a fixture 'fora' não está fora de um pacote"; exit 1; }
 
@@ -88,7 +92,12 @@ echo "== hipóteses de defeito (XFAIL): contrato <org>#<prob> com org e prob nã
 caso H H1 fora     ''   1 'id inválido'    '#'
 caso H H2 fora     ''   1 'id inválido'    'org#'
 caso H H3 fora     ''   1 'id inválido'    '#p'
-caso H H4 semrepo  ''   1 ''               foo
+
+echo "== TDD ciclo 1: nome sem org numa pasta cujo .moj-id não diz a org (ex-XFAIL H4 + T1..T3) =="
+caso C H4 semrepo   ''   1 ''               foo      # .moj-id sem "repo": nada de '#foo'
+caso C T1 repovazio ''   1 'não diz a org'  foo      # "repo":"" — o resolve_id é quem recusa
+caso C T2 reponull  ''   1 'não diz a org'  foo      # "repo":null — idem
+caso C T3 semrepo   ''   0 'x#y|0'                   # sem argumento o id implícito (.id) continua valendo
 
 (( xpass )) && echo "  ($xpass hipótese(s) XPASS: o defeito não se manifestou)"
 echo; echo "RESULT: $pass passed, $fail failed, $xfail xfail"
