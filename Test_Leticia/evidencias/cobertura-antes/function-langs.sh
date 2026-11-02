@@ -1,0 +1,1 @@
+/home/gomesgoulart/Documentos/Testes/moj-cli/Test_Leticia/evidencias/cobertura-antes/function-langs.sh.e76351f204abcc9

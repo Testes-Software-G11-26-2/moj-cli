@@ -1,0 +1,42 @@
+++@function-conf-gate.sh:29@ function_conf_gate /tmp/tmp.lxNhGwbxRZ/C18
+++@moj:864@ local d=/tmp/tmp.lxNhGwbxRZ/C18 ok=1 v l c 'dirs= ' f
++++@moj:865@ conf_get /tmp/tmp.lxNhGwbxRZ/C18 FUNCTION_LANGS
++++@moj:370@ local d=/tmp/tmp.lxNhGwbxRZ/C18 k=FUNCTION_LANGS line
++++@moj:370@ [[ -f /tmp/tmp.lxNhGwbxRZ/C18/conf ]]
++++@moj:370@ IFS=
++++@moj:370@ read -r line
++++@moj:370@ [[ FUNCTION_LANGS=aaaaaaaaaaaaaaaaa == FUNCTION_LANGS\=* ]]
++++@moj:370@ line=aaaaaaaaaaaaaaaaa
++++@moj:370@ line=aaaaaaaaaaaaaaaaa
++++@moj:370@ printf %s aaaaaaaaaaaaaaaaa
++++@moj:370@ return 0
++++@moj:865@ tr A-Z a-z
+++@moj:865@ v=aaaaaaaaaaaaaaaaa
+++@moj:865@ v=aaaaaaaaaaaaaaaaa
+++@moj:866@ [[ -n aaaaaaaaaaaaaaaaa ]]
+++@moj:867@ for f in "$d"/scripts/*/compile.sh
+++@moj:867@ [[ -f /tmp/tmp.lxNhGwbxRZ/C18/scripts/aaaaaaaaaaaaaaaaa/compile.sh ]]
++++++@moj:867@ dirname /tmp/tmp.lxNhGwbxRZ/C18/scripts/aaaaaaaaaaaaaaaaa/compile.sh
+++++@moj:867@ basename /tmp/tmp.lxNhGwbxRZ/C18/scripts/aaaaaaaaaaaaaaaaa
++++@moj:867@ fn_lang_canon aaaaaaaaaaaaaaaaa
++++@moj:863@ case "$1" in
++++@moj:863@ printf %s aaaaaaaaaaaaaaaaa
+++@moj:867@ dirs+='aaaaaaaaaaaaaaaaa '
+++@moj:868@ local -a ls_
+++@moj:868@ IFS=', '
+++@moj:868@ read -ra ls_
+++@moj:869@ for l in "${ls_[@]}"
+++@moj:870@ [[ -n aaaaaaaaaaaaaaaaa ]]
++++@moj:871@ fn_lang_canon aaaaaaaaaaaaaaaaa
++++@moj:863@ case "$1" in
++++@moj:863@ printf %s aaaaaaaaaaaaaaaaa
+++@moj:871@ c=aaaaaaaaaaaaaaaaa
+++@moj:872@ [[ aaaaaaaaaaaaaaaaa =~ ^[a-z0-9]{1,16}$ ]]
+++@moj:872@ echo '  ⚠ FUNCTION_LANGS: '\''aaaaaaaaaaaaaaaaa'\'' não é id de linguagem'
+++@moj:872@ ok=0
+++@moj:872@ continue
+++@moj:875@ [[ 0 -eq 1 ]]
++@function-conf-gate.sh:29@ OUT='  ⚠ FUNCTION_LANGS: '\''aaaaaaaaaaaaaaaaa'\'' não é id de linguagem'
++@function-conf-gate.sh:29@ RC=1
++@function-conf-gate.sh:30@ ((  TRACE  ))
++@function-conf-gate.sh:30@ set +x

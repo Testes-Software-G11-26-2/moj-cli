@@ -1,0 +1,12 @@
+{
+  "files": [
+    {"file": "/home/gomesgoulart/Documentos/Testes/moj-cli/moj", "percent_covered": "1.58", "covered_lines": "19", "total_lines": "1201"}
+  ],
+  "percent_covered": "1.58",
+  "covered_lines": 19,
+  "total_lines": 1201,
+  "percent_low": 25,
+  "percent_high": 75,
+  "command": "function-langs.sh",
+  "date": "2026-11-02 01:59:07"
+}

@@ -1,0 +1,1 @@
+/home/gomesgoulart/Documentos/Testes/moj-cli/Test_Leticia/evidencias/cobertura/function-conf-gate.sh.4541e8c9dbe9d3bc

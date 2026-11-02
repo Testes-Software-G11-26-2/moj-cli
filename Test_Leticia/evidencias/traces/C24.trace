@@ -1,0 +1,36 @@
+++@function-conf-gate.sh:29@ function_conf_gate /tmp/tmp.lxNhGwbxRZ/C24
+++@moj:864@ local d=/tmp/tmp.lxNhGwbxRZ/C24 ok=1 v l c 'dirs= ' f
++++@moj:865@ conf_get /tmp/tmp.lxNhGwbxRZ/C24 FUNCTION_LANGS
++++@moj:370@ local d=/tmp/tmp.lxNhGwbxRZ/C24 k=FUNCTION_LANGS line
++++@moj:370@ [[ -f /tmp/tmp.lxNhGwbxRZ/C24/conf ]]
++++@moj:370@ IFS=
++++@moj:370@ read -r line
++++@moj:370@ [[ FUNCTION_LANGS=c == FUNCTION_LANGS\=* ]]
++++@moj:370@ line=c
++++@moj:370@ line=c
++++@moj:370@ printf %s c
++++@moj:865@ tr A-Z a-z
++++@moj:370@ return 0
+++@moj:865@ v=c
+++@moj:865@ v=c
+++@moj:866@ [[ -n c ]]
+++@moj:867@ for f in "$d"/scripts/*/compile.sh
+++@moj:867@ [[ -f /tmp/tmp.lxNhGwbxRZ/C24/scripts/*/compile.sh ]]
+++@moj:868@ local -a ls_
+++@moj:868@ IFS=', '
+++@moj:868@ read -ra ls_
+++@moj:869@ for l in "${ls_[@]}"
+++@moj:870@ [[ -n c ]]
++++@moj:871@ fn_lang_canon c
++++@moj:863@ case "$1" in
++++@moj:863@ printf %s c
+++@moj:871@ c=c
+++@moj:872@ [[ c =~ ^[a-z0-9]{1,16}$ ]]
+++@moj:873@ [[   == * c * ]]
+++@moj:873@ echo '  ⚠ FUNCTION_LANGS lista c, mas falta scripts/c/compile.sh (o driver com o main)'
+++@moj:873@ ok=0
+++@moj:875@ [[ 0 -eq 1 ]]
++@function-conf-gate.sh:29@ OUT='  ⚠ FUNCTION_LANGS lista c, mas falta scripts/c/compile.sh (o driver com o main)'
++@function-conf-gate.sh:29@ RC=1
++@function-conf-gate.sh:30@ ((  TRACE  ))
++@function-conf-gate.sh:30@ set +x

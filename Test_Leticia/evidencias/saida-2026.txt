@@ -1,0 +1,35 @@
+== Caixa-preta: classes válidas (entrada sem nada a conferir) ==
+  ok:   C01 pacote sem arquivo conf: passa
+  ok:   C02 conf sem a chave FUNCTION_LANGS: passa
+  ok:   C03 valor vazio (FUNCTION_LANGS=): passa
+  ok:   C04 só vírgulas e espaços: passa
+  ok:   C05 só comentário (FUNCTION_LANGS=# x): passa
+== Caixa-preta: classes válidas (lista com driver) ==
+  ok:   C06 c,py com drivers c e py3 (canônico py): passa
+  ok:   C07 py3 listado, driver py3: passa
+  ok:   C08 c++ -> cpp, driver cpp: passa
+  ok:   C09 cc e cxx -> cpp, driver cpp: passa
+  ok:   C10 py2 -> py, driver py3: passa
+  ok:   C11 aspas duplas, caixa e espaço: passa
+  ok:   C12 separador só por espaço (c py): passa
+  ok:   C13 comentário depois da lista: passa
+  ok:   C14 elemento vazio no meio (c,,py): passa
+  ok:   C15 vírgula no fim (c,): passa
+== Caixa-preta: valores limite do identificador (1 a 16 caracteres) ==
+  ok:   C16 1 caractere (c): passa
+  ok:   C17 16 caracteres com driver: passa
+  ok:   C18 17 caracteres, mesmo com driver: reprova
+== Caixa-preta: classes inválidas, uma por vez ==
+  ok:   C19 símbolo no id (x$y): reprova, cita o id
+  ok:   C20 glob (*) não expande: reprova como id
+  ok:   C21 linguagem válida sem driver (java): reprova
+== Caixa-branca: decisões D2 (laço de pastas) e D5 (driver) ==
+  ok:   C22 sem pasta scripts/ (o glob não casa nada, -f falso): reprova
+  ok:   C23 scripts/c existe mas sem compile.sh (D2 falsa): reprova
+  ok:   C24 scripts/ vazia: reprova
+== Complemento: dois erros distintos na mesma lista (ok=0 acumula, continue segue) ==
+  ok:   C25 x$y,java: reprova e relata os dois
+  ok:   C26 um erro e um acerto (java,c): reprova só por java
+  ok:   C27 diretório inexistente: passa
+
+RESULT: 27 passed, 0 failed

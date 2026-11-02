@@ -1,0 +1,21 @@
+++@function-conf-gate.sh:29@ function_conf_gate /tmp/tmp.lxNhGwbxRZ/C03
+++@moj:864@ local d=/tmp/tmp.lxNhGwbxRZ/C03 ok=1 v l c 'dirs= ' f
++++@moj:865@ conf_get /tmp/tmp.lxNhGwbxRZ/C03 FUNCTION_LANGS
++++@moj:865@ tr A-Z a-z
++++@moj:370@ local d=/tmp/tmp.lxNhGwbxRZ/C03 k=FUNCTION_LANGS line
++++@moj:370@ [[ -f /tmp/tmp.lxNhGwbxRZ/C03/conf ]]
++++@moj:370@ IFS=
++++@moj:370@ read -r line
++++@moj:370@ [[ FUNCTION_LANGS= == FUNCTION_LANGS\=* ]]
++++@moj:370@ line=
++++@moj:370@ line=
++++@moj:370@ printf %s ''
++++@moj:370@ return 0
+++@moj:865@ v=
+++@moj:865@ v=
+++@moj:866@ [[ -n '' ]]
+++@moj:866@ return 0
++@function-conf-gate.sh:29@ OUT=
++@function-conf-gate.sh:29@ RC=0
++@function-conf-gate.sh:30@ ((  TRACE  ))
++@function-conf-gate.sh:30@ set +x

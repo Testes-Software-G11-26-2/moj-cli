@@ -1,0 +1,56 @@
+++@function-conf-gate.sh:29@ function_conf_gate /tmp/tmp.lxNhGwbxRZ/C12
+++@moj:864@ local d=/tmp/tmp.lxNhGwbxRZ/C12 ok=1 v l c 'dirs= ' f
++++@moj:865@ conf_get /tmp/tmp.lxNhGwbxRZ/C12 FUNCTION_LANGS
++++@moj:370@ local d=/tmp/tmp.lxNhGwbxRZ/C12 k=FUNCTION_LANGS line
++++@moj:370@ [[ -f /tmp/tmp.lxNhGwbxRZ/C12/conf ]]
++++@moj:865@ tr A-Z a-z
++++@moj:370@ IFS=
++++@moj:370@ read -r line
++++@moj:370@ [[ FUNCTION_LANGS=c py == FUNCTION_LANGS\=* ]]
++++@moj:370@ line='c py'
++++@moj:370@ line='c py'
++++@moj:370@ printf %s 'c py'
++++@moj:370@ return 0
+++@moj:865@ v='c py'
+++@moj:865@ v='c py'
+++@moj:866@ [[ -n cpy ]]
+++@moj:867@ for f in "$d"/scripts/*/compile.sh
+++@moj:867@ [[ -f /tmp/tmp.lxNhGwbxRZ/C12/scripts/c/compile.sh ]]
++++++@moj:867@ dirname /tmp/tmp.lxNhGwbxRZ/C12/scripts/c/compile.sh
+++++@moj:867@ basename /tmp/tmp.lxNhGwbxRZ/C12/scripts/c
++++@moj:867@ fn_lang_canon c
++++@moj:863@ case "$1" in
++++@moj:863@ printf %s c
+++@moj:867@ dirs+='c '
+++@moj:867@ for f in "$d"/scripts/*/compile.sh
+++@moj:867@ [[ -f /tmp/tmp.lxNhGwbxRZ/C12/scripts/py3/compile.sh ]]
++++++@moj:867@ dirname /tmp/tmp.lxNhGwbxRZ/C12/scripts/py3/compile.sh
+++++@moj:867@ basename /tmp/tmp.lxNhGwbxRZ/C12/scripts/py3
++++@moj:867@ fn_lang_canon py3
++++@moj:863@ case "$1" in
++++@moj:863@ printf py
+++@moj:867@ dirs+='py '
+++@moj:868@ local -a ls_
+++@moj:868@ IFS=', '
+++@moj:868@ read -ra ls_
+++@moj:869@ for l in "${ls_[@]}"
+++@moj:870@ [[ -n c ]]
++++@moj:871@ fn_lang_canon c
++++@moj:863@ case "$1" in
++++@moj:863@ printf %s c
+++@moj:871@ c=c
+++@moj:872@ [[ c =~ ^[a-z0-9]{1,16}$ ]]
+++@moj:873@ [[  c py  == * c * ]]
+++@moj:869@ for l in "${ls_[@]}"
+++@moj:870@ [[ -n py ]]
++++@moj:871@ fn_lang_canon py
++++@moj:863@ case "$1" in
++++@moj:863@ printf %s py
+++@moj:871@ c=py
+++@moj:872@ [[ py =~ ^[a-z0-9]{1,16}$ ]]
+++@moj:873@ [[  c py  == * py * ]]
+++@moj:875@ [[ 1 -eq 1 ]]
++@function-conf-gate.sh:29@ OUT=
++@function-conf-gate.sh:29@ RC=0
++@function-conf-gate.sh:30@ ((  TRACE  ))
++@function-conf-gate.sh:30@ set +x
