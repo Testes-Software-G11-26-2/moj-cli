@@ -9,7 +9,7 @@
 | Commit | 08782ef |
 | Branch | `test/carol-m04` |
 | Ferramentas | `<bash --version \| head -1>` · `<jq --version>` · `<sistema operacional: Git Bash no Windows>` |
-| Data | `<AAAA-MM-DD da execução que gerou as evidências>` |
+| Data | 02/11/2026 |
 | Script | `Test_Carol/sample-off.sh`: teste de unidade, offline, com fixture em `mktemp -d` |
 
 Para reproduzir, rode na raiz do `moj-cli`:
@@ -135,7 +135,7 @@ O xtrace mostra **cada condição** do OR em uma linha própria (`sample_off:843
 
 ## 5. Resultados
 
-Execução de `<AAAA-MM-DD>` (`evidencias/saida-<AAAA-MM-DD>.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
+Execução de 01/11/2026 (`evidencias/saida-2026-11-01.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
 
 | ID | conf | esperado | obtido | status | critério |
 |---|---|---|---|---|---|
@@ -174,9 +174,9 @@ Execução de `<AAAA-MM-DD>` (`evidencias/saida-<AAAA-MM-DD>.txt`): **`RESULT: 3
 | H1 | `SAMPLE=NÃO` | rc0 | rc1 | XFAIL | defeito H1 |
 | H2 | `SAMPLE=no` sem newline final | rc0 | rc1 | XFAIL | defeito H2 |
 
-Confira os valores da coluna "obtido" com o arquivo `evidencias/saida-<data>.txt` antes de entregar.
 
 ![Execução completa — 32 passed, 0 failed, 2 xfail](evidencias/img/execucao-completa.png)
+![Execução completa — 32 passed, 0 failed, 2 xfail](evidencias/img/execucao-completa2.png)
 
 ### Traces dos pares MC/DC
 
@@ -194,7 +194,7 @@ Confira os valores da coluna "obtido" com o arquivo `evidencias/saida-<data>.txt
 
 ## 6. Defeitos (XFAIL)
 
-O oráculo é o requisito (seção 2), e não o código. Os dois casos falham hoje e não entram no exit code.
+O oráculo é o requisito (seção 2), e não o código .Na implementação original do moj, os dois casos apresentam os defeitos abaixo. Na implementação local de TDD, ambos foram corrigidos.
 
 ### H1: `NÃO` em maiúscula é recusado
 
@@ -232,7 +232,7 @@ O oráculo é o requisito (seção 2), e não o código. Os dois casos falham ho
 
   Testei essa alteração numa cópia da função: a chave da última linha passa a ser lida e o caso normal continua igual. Este defeito é do **M03 (`conf_get`)**, então combine com quem fez o M03 para o relatório dele dizer a mesma coisa.
 
-![H2 — SAMPLE=no sem newline final](evidencias/img/xfail-H2.png)
+![H2 — SAMPLE=no sem newline final](evidencias/img/xfail-H1.png)
 
 ## 7. Lacunas e limitações
 
