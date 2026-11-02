@@ -1,35 +1,36 @@
-+ run_id:33: id_arg '^(on|off)$' on
-+ id_arg:1475: local 'free=^(on|off)$'
-+ id_arg:1475: shift
-+ id_arg:1475: IDSHIFT=0
-+ id_arg:1476: [[ 1 -eq 0 ]]
-+ id_arg:1476: [[ on == -* ]]
-+ id_arg:1476: [[ -n ^(on|off)$ ]]
-+ id_arg:1476: [[ on =~ ^(on|off)$ ]]
-+ id_arg:1476: pkg_root
++ run_id:41: id_arg '^(on|off)$' on
++ id_arg:1481: local 'free=^(on|off)$'
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 1 -eq 0 ]]
++ id_arg:1482: [[ on == -* ]]
++ id_arg:1482: [[ -n ^(on|off)$ ]]
++ id_arg:1482: [[ on =~ ^(on|off)$ ]]
++ id_arg:1482: pkg_root
 + pkg_root:1453: local d
 ++ pkg_root:1453: cd .
 ++ pkg_root:1453: pwd -P
-+ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/pkg
++ pkg_root:1453: d=/tmp/tmp.t58TSbSGS4/pkg
 + pkg_root:1454: :
-+ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/pkg/.moj-id ]]
-+ pkg_root:1455: printf %s /tmp/tmp.jKJGnL9nFU/pkg
++ pkg_root:1455: [[ -f /tmp/tmp.t58TSbSGS4/pkg/.moj-id ]]
++ pkg_root:1455: printf %s /tmp/tmp.t58TSbSGS4/pkg
 + pkg_root:1455: return 0
-++ id_arg:1477: resolve_id
-++ resolve_id:1462: local a= r
+++ id_arg:1483: resolve_id
+++ resolve_id:1462: local a= r o
 ++ resolve_id:1463: [[ -z '' ]]
 +++ resolve_id:1464: pkg_root
 +++ pkg_root:1453: local d
 ++++ pkg_root:1453: cd .
 ++++ pkg_root:1453: pwd -P
-+++ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/pkg
++++ pkg_root:1453: d=/tmp/tmp.t58TSbSGS4/pkg
 +++ pkg_root:1454: :
-+++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/pkg/.moj-id ]]
-+++ pkg_root:1455: printf %s /tmp/tmp.jKJGnL9nFU/pkg
++++ pkg_root:1455: [[ -f /tmp/tmp.t58TSbSGS4/pkg/.moj-id ]]
++++ pkg_root:1455: printf %s /tmp/tmp.t58TSbSGS4/pkg
 +++ pkg_root:1455: return 0
-++ resolve_id:1464: r=/tmp/tmp.jKJGnL9nFU/pkg
-++ resolve_id:1465: jq -r '.id // empty' /tmp/tmp.jKJGnL9nFU/pkg/.moj-id
+++ resolve_id:1464: r=/tmp/tmp.t58TSbSGS4/pkg
+++ resolve_id:1465: jq -r '.id // empty' /tmp/tmp.t58TSbSGS4/pkg/.moj-id
 ++ resolve_id:1465: return 0
-+ id_arg:1477: ID=org#p1
-+ id_arg:1479: [[ org#p1 == *#* ]]
-+ run_id:33: set +x
++ id_arg:1483: ID=org#p1
++ id_arg:1485: id_completo org#p1
++ id_completo:1477: [[ org#p1 == ?*#?* ]]
++ run_id:41: set +x

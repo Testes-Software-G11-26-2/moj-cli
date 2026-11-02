@@ -1,18 +1,19 @@
-+ run_id:33: id_arg '' ../pkg2
-+ id_arg:1475: local free=
-+ id_arg:1475: shift
-+ id_arg:1475: IDSHIFT=0
-+ id_arg:1476: [[ 1 -eq 0 ]]
-+ id_arg:1476: [[ ../pkg2 == -* ]]
-+ id_arg:1476: [[ -n '' ]]
-++ id_arg:1478: resolve_id ../pkg2
-++ resolve_id:1462: local a=../pkg2 r
++ run_id:41: id_arg '' ../pkg2
++ id_arg:1481: local free=
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 1 -eq 0 ]]
++ id_arg:1482: [[ ../pkg2 == -* ]]
++ id_arg:1482: [[ -n '' ]]
+++ id_arg:1484: resolve_id ../pkg2
+++ resolve_id:1462: local a=../pkg2 r o
 ++ resolve_id:1463: [[ -z ../pkg2 ]]
 ++ resolve_id:1467: [[ ../pkg2 == *#* ]]
 ++ resolve_id:1468: [[ -f ../pkg2/.moj-id ]]
 ++ resolve_id:1468: jq -r '.id // empty' ../pkg2/.moj-id
 ++ resolve_id:1468: return 0
-+ id_arg:1478: ID=org2#p2
-+ id_arg:1478: IDSHIFT=1
-+ id_arg:1479: [[ org2#p2 == *#* ]]
-+ run_id:33: set +x
++ id_arg:1484: ID=org2#p2
++ id_arg:1484: IDSHIFT=1
++ id_arg:1485: id_completo org2#p2
++ id_completo:1477: [[ org2#p2 == ?*#?* ]]
++ run_id:41: set +x

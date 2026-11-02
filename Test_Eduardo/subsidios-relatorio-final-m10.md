@@ -23,30 +23,41 @@ O MOJ é o juiz online da UnB. O `moj-cli` é a ferramenta de linha de comando e
 - **Caixa-branca:** quatro decisões; a D1 tem **cinco condições** (`A ∨ B ∨ (C ∧ D ∧ E)`), cobertas por **MC/DC** com cinco pares (seção 4). Curto-circuito e mascaramento documentados.
 - **Evidência de caminho:** xtrace por caso — aqui o trace mostra **cada termo** da D1 numa linha própria, então a independência de cada condição aparece direto no trace.
 - **Cobertura de linhas:** kcov (seção 5).
-- **TDD:** os defeitos ficaram registrados como XFAIL (o "vermelho"); o ciclo completo Red/Green/Refactor foi feito no M15 (branch `test/eduardo-m15` do cdmoj).
+- **TDD:** os defeitos ficaram registrados como XFAIL e depois foram corrigidos em **2 ciclos** Red/Green/Refactor nesta branch (seção 7 do relatório).
 
 ## Testes desenvolvidos
 
-- Script `id-arg.sh`, no estilo dos testes do upstream: 23 casos — `19 passed, 0 failed, 4 xfail`.
+- Script `id-arg.sh`, no estilo dos testes do upstream: 29 casos — `29 passed, 0 failed, 0 xfail` depois do TDD (antes: 23 casos, `19 passed, 0 failed, 4 xfail`).
 - **Defeitos encontrados** (seção 6):
   - H1, H2, H3: a validação final só confere se **existe um `#`**, então `#`, `org#` e `#p` são aceitos como id (org ou problema vazio), contra a promessa do próprio `die`;
   - H4: com um `.moj-id` sem o campo `repo`, o `resolve_id` monta `#foo` (org vazia) em vez de reclamar.
-- Correções sugeridas em diff (`?*#?*` no `id_arg`; checagem de org vazia no `resolve_id`). **Não aplicadas.**
+- Correções sugeridas em diff (`?*#?*` no `id_arg`; checagem de org vazia no `resolve_id`). **Aplicadas nos 2 ciclos de TDD** (com autorização do Eduardo) e depois refatoradas (helper `mid` e predicado `id_completo`).
 
 ## Métricas de cobertura
 
 | Métrica | Valor medido | Como |
 |---|---|---|
-| Linhas das três funções (1453–1480) | 15 de 16 instrumentadas cobertas (93,75%) | relatório do kcov |
+| Linhas das funções (1453–1486, depois do TDD) | 17 de 18 instrumentadas cobertas (≈ 94,4%) | `cobertura.xml` do kcov, regerado em 2026-11-02 (antes do TDD: 15 de 16, 93,75%) |
 | Linha não coberta | 1458 (`done; }` de um `while :`) | **inatingível**: o laço só sai por `return` |
 | Decisões (V e F) | D1–D4 com os dois lados exercitados | tabela da seção 4 |
 | MC/DC de D1 | 5 de 5 condições com par independente | pares da seção 4 + imagens `mcdc-*.png` |
 
-Ressalvas: a porcentagem vale **só** para o trecho das três funções, não para o arquivo `moj` inteiro. As linhas de definição de função (1453, 1462, 1475) têm comandos que o kcov não instrumenta; o xtrace mostra que eles rodaram.
+Ressalvas: a porcentagem vale **só** para o trecho das três funções, não para o arquivo `moj` inteiro. As linhas de definição de função (1453, 1462, 1477, 1481) têm comandos que o kcov não instrumenta; o xtrace mostra que eles rodaram.
 
 ## Descrição do processo de TDD
 
-No M10 o TDD ficou na primeira etapa: cada hipótese de defeito foi escrita como teste **antes** de qualquer correção e registrada falhando (XFAIL H1–H4). A correção não foi aplicada. O ciclo completo (Red → Green → Refactor, um commit por fase) está documentado na branch do M15.
+Dois ciclos completos nesta branch (seção 7 do relatório; evidências em `evidencias/tdd/`), um commit por fase:
+
+| Ciclo | Fase | O que mudou | Resultado |
+|---|---|---|---|
+| 1 (H4) | Red | H4 de XFAIL a obrigatório; T1 (`repo:""`), T2 (`repo:null`), T3 (proteção: id implícito) | `20 passed, 3 failed, 3 xfail`, exit 1 |
+| 1 | Green | `resolve_id` chama `die` se o `repo` vier vazio | `23 passed, 0 failed, 3 xfail` |
+| 1 | Refactor | leitura pelo helper `mid`, que já existia | `23 passed, 0 failed, 3 xfail` |
+| 2 (H1–H3) | Red | H1–H3 de XFAIL a obrigatórios; T4 (id implícito `#p`), T5 (pasta clonada `org#`), T6 (proteção: `a#b`) | `24 passed, 5 failed, 0 xfail`, exit 1 |
+| 2 | Green | `id_arg`: `*#*` → `?*#?*` | `29 passed, 0 failed, 0 xfail` |
+| 2 | Refactor | predicado `id_completo` | `29 passed, 0 failed, 0 xfail` |
+
+Regressão sem falhas nos testes do upstream offline que tocam o `moj` (push-exit 9, translations 15, parallel-conf 16, portabilidade 15). Ponto de destaque: a **ordem** dos ciclos. A correção do `id_arg` também barraria o defeito do `resolve_id`; corrigindo o H4 primeiro, os dois Reds falharam de verdade e nenhum esperado mudou.
 
 ## Análise crítica (contribuição do M10)
 
@@ -72,7 +83,8 @@ No M10 o TDD ficou na primeira etapa: cada hipótese de defeito foi escrita como
 
 **Impacto do TDD no design e na manutenção.**
 - Escrever H1–H4 como teste antes de pensar na correção expôs que o problema é **um só** (a validação final é fraca demais), e que H4 tem também uma causa na origem (`resolve_id`). A correção sugerida ataca os dois pontos.
-- Os XFAIL deixam o defeito executável: aplicada a correção, o teste vira XPASS e pode ser promovido a caso obrigatório.
+- Os XFAIL deixaram o defeito executável: nos ciclos de TDD, promovê-los a obrigatórios foi o Red, sem mudar nenhum esperado.
+- Escrever T1–T6 antes da correção mostrou que cada defeito tinha mais de uma porta de entrada (valor vazio e `null`; id implícito e pasta clonada), e os casos de proteção (T3, T6) impediram correções largas ou estritas demais.
 
 **Lições aprendidas.**
 - Validação por "contém `#`" é um exemplo clássico de pós-condição fraca; o teste de limite (strings mínimas `#`, `org#`, `#p`) é o que a pega.
@@ -81,4 +93,4 @@ No M10 o TDD ficou na primeira etapa: cada hipótese de defeito foi escrita como
 
 ## Conclusão (contribuição)
 
-O M10 foi testado com 23 casos (19 obrigatórios e 4 hipóteses de defeito), 15 de 16 linhas instrumentadas cobertas (a restante é inatingível) e MC/DC completo das cinco condições da decisão principal. Os quatro defeitos encontrados permitem que um id sem org ou sem problema chegue à API. As correções estão propostas em diff e não foram aplicadas.
+O M10 foi testado com 23 casos (19 obrigatórios e 4 hipóteses de defeito), 15 de 16 linhas instrumentadas cobertas (a restante é inatingível) e MC/DC completo das cinco condições da decisão principal. Os quatro defeitos encontrados permitiam que um id sem org ou sem problema chegasse à API. Eles foram corrigidos em 2 ciclos de TDD, que acrescentaram seis casos (T1–T6): hoje são 29 casos, todos obrigatórios e passando, com 17 de 18 linhas instrumentadas cobertas e sem regressão nos testes do upstream.

@@ -1,12 +1,12 @@
 {
   "files": [
-    {"file": "/home/eduardo/testes-g11/moj-cli/moj", "percent_covered": "2.00", "covered_lines": "24", "total_lines": "1201"}
+    {"file": "/home/eduardo/testes-g11/moj-cli/moj", "percent_covered": "2.16", "covered_lines": "26", "total_lines": "1203"}
   ],
-  "percent_covered": "2.00",
-  "covered_lines": 24,
-  "total_lines": 1201,
+  "percent_covered": "2.16",
+  "covered_lines": 26,
+  "total_lines": 1203,
   "percent_low": 25,
   "percent_high": 75,
   "command": "id-arg.sh",
-  "date": "2026-10-23 17:42:23"
+  "date": "2026-11-02 17:53:38"
 }

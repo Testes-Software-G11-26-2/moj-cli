@@ -1,12 +1,12 @@
-+ run_id:33: id_arg '' foo
-+ id_arg:1475: local free=
-+ id_arg:1475: shift
-+ id_arg:1475: IDSHIFT=0
-+ id_arg:1476: [[ 1 -eq 0 ]]
-+ id_arg:1476: [[ foo == -* ]]
-+ id_arg:1476: [[ -n '' ]]
-++ id_arg:1478: resolve_id foo
-++ resolve_id:1462: local a=foo r
++ run_id:41: id_arg '' foo
++ id_arg:1481: local free=
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 1 -eq 0 ]]
++ id_arg:1482: [[ foo == -* ]]
++ id_arg:1482: [[ -n '' ]]
+++ id_arg:1484: resolve_id foo
+++ resolve_id:1462: local a=foo r o
 ++ resolve_id:1463: [[ -z foo ]]
 ++ resolve_id:1467: [[ foo == *#* ]]
 ++ resolve_id:1468: [[ -f foo/.moj-id ]]
@@ -14,15 +14,18 @@
 +++ pkg_root:1453: local d
 ++++ pkg_root:1453: cd .
 ++++ pkg_root:1453: pwd -P
-+++ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/semrepo
++++ pkg_root:1453: d=/tmp/tmp.t58TSbSGS4/semrepo
 +++ pkg_root:1454: :
-+++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/semrepo/.moj-id ]]
-+++ pkg_root:1455: printf %s /tmp/tmp.jKJGnL9nFU/semrepo
++++ pkg_root:1455: [[ -f /tmp/tmp.t58TSbSGS4/semrepo/.moj-id ]]
++++ pkg_root:1455: printf %s /tmp/tmp.t58TSbSGS4/semrepo
 +++ pkg_root:1455: return 0
-++ resolve_id:1469: r=/tmp/tmp.jKJGnL9nFU/semrepo
-+++ resolve_id:1470: jq -r '.repo // empty' /tmp/tmp.jKJGnL9nFU/semrepo/.moj-id
-++ resolve_id:1470: printf %s#%s '' foo
-+ id_arg:1478: ID='#foo'
-+ id_arg:1478: IDSHIFT=1
-+ id_arg:1479: [[ #foo == *#* ]]
-+ run_id:33: set +x
+++ resolve_id:1469: r=/tmp/tmp.t58TSbSGS4/semrepo
++++ resolve_id:1470: mid /tmp/tmp.t58TSbSGS4/semrepo repo
++++ mid:1448: jq -r '.repo // ""' /tmp/tmp.t58TSbSGS4/semrepo/.moj-id
+++ resolve_id:1470: o=
+++ resolve_id:1471: [[ -n '' ]]
+++ resolve_id:1471: die ''\''foo'\'' não diz a org: o .moj-id de /tmp/tmp.t58TSbSGS4/semrepo não tem "repo"; use <org>#foo.'
+++ die:18: printf '%s: %s\n' moj ''\''foo'\'' não diz a org: o .moj-id de /tmp/tmp.t58TSbSGS4/semrepo não tem "repo"; use <org>#foo.'
+++ die:18: exit 1
++ id_arg:1484: ID=
++ id_arg:1484: exit 1

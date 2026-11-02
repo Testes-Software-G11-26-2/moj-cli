@@ -1,25 +1,26 @@
-+ run_id:33: id_arg ''
-+ id_arg:1475: local free=
-+ id_arg:1475: shift
-+ id_arg:1475: IDSHIFT=0
-+ id_arg:1476: [[ 0 -eq 0 ]]
-++ id_arg:1477: resolve_id
-++ resolve_id:1462: local a= r
++ run_id:41: id_arg ''
++ id_arg:1481: local free=
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 0 -eq 0 ]]
+++ id_arg:1483: resolve_id
+++ resolve_id:1462: local a= r o
 ++ resolve_id:1463: [[ -z '' ]]
 +++ resolve_id:1464: pkg_root
 +++ pkg_root:1453: local d
 ++++ pkg_root:1453: cd .
 ++++ pkg_root:1453: pwd -P
-+++ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/semid
++++ pkg_root:1453: d=/tmp/tmp.t58TSbSGS4/semid
 +++ pkg_root:1454: :
-+++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/semid/.moj-id ]]
-+++ pkg_root:1455: printf %s /tmp/tmp.jKJGnL9nFU/semid
++++ pkg_root:1455: [[ -f /tmp/tmp.t58TSbSGS4/semid/.moj-id ]]
++++ pkg_root:1455: printf %s /tmp/tmp.t58TSbSGS4/semid
 +++ pkg_root:1455: return 0
-++ resolve_id:1464: r=/tmp/tmp.jKJGnL9nFU/semid
-++ resolve_id:1465: jq -r '.id // empty' /tmp/tmp.jKJGnL9nFU/semid/.moj-id
+++ resolve_id:1464: r=/tmp/tmp.t58TSbSGS4/semid
+++ resolve_id:1465: jq -r '.id // empty' /tmp/tmp.t58TSbSGS4/semid/.moj-id
 ++ resolve_id:1465: return 0
-+ id_arg:1477: ID=
-+ id_arg:1479: [[ '' == *#* ]]
-+ id_arg:1479: die 'id inválido: '\'''\'' (esperado <org>#<prob>)'
++ id_arg:1483: ID=
++ id_arg:1485: id_completo ''
++ id_completo:1477: [[ '' == ?*#?* ]]
++ id_arg:1485: die 'id inválido: '\'''\'' (esperado <org>#<prob>)'
 + die:18: printf '%s: %s\n' moj 'id inválido: '\'''\'' (esperado <org>#<prob>)'
 + die:18: exit 1

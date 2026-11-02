@@ -1,13 +1,13 @@
-+ run_id:33: id_arg '^(on|off)$' onn
-+ id_arg:1475: local 'free=^(on|off)$'
-+ id_arg:1475: shift
-+ id_arg:1475: IDSHIFT=0
-+ id_arg:1476: [[ 1 -eq 0 ]]
-+ id_arg:1476: [[ onn == -* ]]
-+ id_arg:1476: [[ -n ^(on|off)$ ]]
-+ id_arg:1476: [[ onn =~ ^(on|off)$ ]]
-++ id_arg:1478: resolve_id onn
-++ resolve_id:1462: local a=onn r
++ run_id:41: id_arg '^(on|off)$' onn
++ id_arg:1481: local 'free=^(on|off)$'
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 1 -eq 0 ]]
++ id_arg:1482: [[ onn == -* ]]
++ id_arg:1482: [[ -n ^(on|off)$ ]]
++ id_arg:1482: [[ onn =~ ^(on|off)$ ]]
+++ id_arg:1484: resolve_id onn
+++ resolve_id:1462: local a=onn r o
 ++ resolve_id:1463: [[ -z onn ]]
 ++ resolve_id:1467: [[ onn == *#* ]]
 ++ resolve_id:1468: [[ -f onn/.moj-id ]]
@@ -15,15 +15,19 @@
 +++ pkg_root:1453: local d
 ++++ pkg_root:1453: cd .
 ++++ pkg_root:1453: pwd -P
-+++ pkg_root:1453: d=/tmp/tmp.jKJGnL9nFU/pkg
++++ pkg_root:1453: d=/tmp/tmp.t58TSbSGS4/pkg
 +++ pkg_root:1454: :
-+++ pkg_root:1455: [[ -f /tmp/tmp.jKJGnL9nFU/pkg/.moj-id ]]
-+++ pkg_root:1455: printf %s /tmp/tmp.jKJGnL9nFU/pkg
++++ pkg_root:1455: [[ -f /tmp/tmp.t58TSbSGS4/pkg/.moj-id ]]
++++ pkg_root:1455: printf %s /tmp/tmp.t58TSbSGS4/pkg
 +++ pkg_root:1455: return 0
-++ resolve_id:1469: r=/tmp/tmp.jKJGnL9nFU/pkg
-+++ resolve_id:1470: jq -r '.repo // empty' /tmp/tmp.jKJGnL9nFU/pkg/.moj-id
-++ resolve_id:1470: printf %s#%s org onn
-+ id_arg:1478: ID=org#onn
-+ id_arg:1478: IDSHIFT=1
-+ id_arg:1479: [[ org#onn == *#* ]]
-+ run_id:33: set +x
+++ resolve_id:1469: r=/tmp/tmp.t58TSbSGS4/pkg
++++ resolve_id:1470: mid /tmp/tmp.t58TSbSGS4/pkg repo
++++ mid:1448: jq -r '.repo // ""' /tmp/tmp.t58TSbSGS4/pkg/.moj-id
+++ resolve_id:1470: o=org
+++ resolve_id:1471: [[ -n org ]]
+++ resolve_id:1472: printf %s#%s org onn
++ id_arg:1484: ID=org#onn
++ id_arg:1484: IDSHIFT=1
++ id_arg:1485: id_completo org#onn
++ id_completo:1477: [[ org#onn == ?*#?* ]]
++ run_id:41: set +x

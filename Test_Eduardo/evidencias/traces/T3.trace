@@ -1,0 +1,24 @@
++ run_id:41: id_arg ''
++ id_arg:1481: local free=
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 0 -eq 0 ]]
+++ id_arg:1483: resolve_id
+++ resolve_id:1462: local a= r o
+++ resolve_id:1463: [[ -z '' ]]
++++ resolve_id:1464: pkg_root
++++ pkg_root:1453: local d
+++++ pkg_root:1453: cd .
+++++ pkg_root:1453: pwd -P
++++ pkg_root:1453: d=/tmp/tmp.t58TSbSGS4/semrepo
++++ pkg_root:1454: :
++++ pkg_root:1455: [[ -f /tmp/tmp.t58TSbSGS4/semrepo/.moj-id ]]
++++ pkg_root:1455: printf %s /tmp/tmp.t58TSbSGS4/semrepo
++++ pkg_root:1455: return 0
+++ resolve_id:1464: r=/tmp/tmp.t58TSbSGS4/semrepo
+++ resolve_id:1465: jq -r '.id // empty' /tmp/tmp.t58TSbSGS4/semrepo/.moj-id
+++ resolve_id:1465: return 0
++ id_arg:1483: ID=x#y
++ id_arg:1485: id_completo x#y
++ id_completo:1477: [[ x#y == ?*#?* ]]
++ run_id:41: set +x

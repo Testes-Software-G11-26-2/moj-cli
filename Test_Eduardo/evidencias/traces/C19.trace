@@ -1,20 +1,21 @@
-+ run_id:33: id_arg '' ../semid
-+ id_arg:1475: local free=
-+ id_arg:1475: shift
-+ id_arg:1475: IDSHIFT=0
-+ id_arg:1476: [[ 1 -eq 0 ]]
-+ id_arg:1476: [[ ../semid == -* ]]
-+ id_arg:1476: [[ -n '' ]]
-++ id_arg:1478: resolve_id ../semid
-++ resolve_id:1462: local a=../semid r
++ run_id:41: id_arg '' ../semid
++ id_arg:1481: local free=
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 1 -eq 0 ]]
++ id_arg:1482: [[ ../semid == -* ]]
++ id_arg:1482: [[ -n '' ]]
+++ id_arg:1484: resolve_id ../semid
+++ resolve_id:1462: local a=../semid r o
 ++ resolve_id:1463: [[ -z ../semid ]]
 ++ resolve_id:1467: [[ ../semid == *#* ]]
 ++ resolve_id:1468: [[ -f ../semid/.moj-id ]]
 ++ resolve_id:1468: jq -r '.id // empty' ../semid/.moj-id
 ++ resolve_id:1468: return 0
-+ id_arg:1478: ID=
-+ id_arg:1478: IDSHIFT=1
-+ id_arg:1479: [[ '' == *#* ]]
-+ id_arg:1479: die 'id inválido: '\'''\'' (esperado <org>#<prob>)'
++ id_arg:1484: ID=
++ id_arg:1484: IDSHIFT=1
++ id_arg:1485: id_completo ''
++ id_completo:1477: [[ '' == ?*#?* ]]
++ id_arg:1485: die 'id inválido: '\'''\'' (esperado <org>#<prob>)'
 + die:18: printf '%s: %s\n' moj 'id inválido: '\'''\'' (esperado <org>#<prob>)'
 + die:18: exit 1

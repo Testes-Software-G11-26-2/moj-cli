@@ -1,17 +1,20 @@
-+ run_id:33: id_arg '' '#p'
-+ id_arg:1475: local free=
-+ id_arg:1475: shift
-+ id_arg:1475: IDSHIFT=0
-+ id_arg:1476: [[ 1 -eq 0 ]]
-+ id_arg:1476: [[ #p == -* ]]
-+ id_arg:1476: [[ -n '' ]]
-++ id_arg:1478: resolve_id '#p'
-++ resolve_id:1462: local a=#p r
++ run_id:41: id_arg '' '#p'
++ id_arg:1481: local free=
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 1 -eq 0 ]]
++ id_arg:1482: [[ #p == -* ]]
++ id_arg:1482: [[ -n '' ]]
+++ id_arg:1484: resolve_id '#p'
+++ resolve_id:1462: local a=#p r o
 ++ resolve_id:1463: [[ -z #p ]]
 ++ resolve_id:1467: [[ #p == *#* ]]
 ++ resolve_id:1467: printf %s '#p'
 ++ resolve_id:1467: return 0
-+ id_arg:1478: ID='#p'
-+ id_arg:1478: IDSHIFT=1
-+ id_arg:1479: [[ #p == *#* ]]
-+ run_id:33: set +x
++ id_arg:1484: ID='#p'
++ id_arg:1484: IDSHIFT=1
++ id_arg:1485: id_completo '#p'
++ id_completo:1477: [[ #p == ?*#?* ]]
++ id_arg:1485: die 'id inválido: '\''#p'\'' (esperado <org>#<prob>)'
++ die:18: printf '%s: %s\n' moj 'id inválido: '\''#p'\'' (esperado <org>#<prob>)'
++ die:18: exit 1

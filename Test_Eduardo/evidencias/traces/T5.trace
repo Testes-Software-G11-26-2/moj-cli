@@ -1,0 +1,21 @@
++ run_id:41: id_arg '' ../idsemprob
++ id_arg:1481: local free=
++ id_arg:1481: shift
++ id_arg:1481: IDSHIFT=0
++ id_arg:1482: [[ 1 -eq 0 ]]
++ id_arg:1482: [[ ../idsemprob == -* ]]
++ id_arg:1482: [[ -n '' ]]
+++ id_arg:1484: resolve_id ../idsemprob
+++ resolve_id:1462: local a=../idsemprob r o
+++ resolve_id:1463: [[ -z ../idsemprob ]]
+++ resolve_id:1467: [[ ../idsemprob == *#* ]]
+++ resolve_id:1468: [[ -f ../idsemprob/.moj-id ]]
+++ resolve_id:1468: jq -r '.id // empty' ../idsemprob/.moj-id
+++ resolve_id:1468: return 0
++ id_arg:1484: ID=org#
++ id_arg:1484: IDSHIFT=1
++ id_arg:1485: id_completo org#
++ id_completo:1477: [[ org# == ?*#?* ]]
++ id_arg:1485: die 'id inválido: '\''org#'\'' (esperado <org>#<prob>)'
++ die:18: printf '%s: %s\n' moj 'id inválido: '\''org#'\'' (esperado <org>#<prob>)'
++ die:18: exit 1
