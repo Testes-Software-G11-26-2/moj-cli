@@ -1,0 +1,51 @@
+diff --git a/Test_Eduardo/id-arg.sh b/Test_Eduardo/id-arg.sh
+index 87d94a2..64ce472 100755
+--- a/Test_Eduardo/id-arg.sh
++++ b/Test_Eduardo/id-arg.sh
+@@ -1,8 +1,9 @@
+ #!/bin/bash
+ # id-arg.sh — M10 `id_arg` (moj): de onde sai o <org>#<prob> do comando. Testes de unidade derivados por
+ # caixa-preta (partições + limites) e caixa-branca (decisões + MC/DC de D1 = A ∨ B ∨ (C ∧ D ∧ E)).
+-# C01..C19, H4 e T1..T3 entram no exit code; H1..H3 são hipóteses de defeito (XFAIL: o esperado é falharem hoje).
++# Todos os casos (C01..C19, H1..H4, T1..T6) entram no exit code.
+ # TDD ciclo 1: H4 era XFAIL e virou caso obrigatório; T1..T3 nasceram no Red do ciclo.
++# TDD ciclo 2: H1..H3 eram XFAIL e viraram casos obrigatórios; T4..T6 nasceram no Red do ciclo.
+ # Sem rede. Uso: bash Test_Eduardo/id-arg.sh [--trace]  (--trace grava evidencias/traces/<ID>.trace)
+ set -u
+ HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"; CLI="$(cd "$HERE/.." && pwd)"
+@@ -25,6 +26,9 @@ printf '{"id":"x#y"}'                   > "$T/semrepo/.moj-id"
+ mkdir -p "$T/repovazio" "$T/reponull"
+ printf '{"id":"x#y","repo":""}'       > "$T/repovazio/.moj-id"
+ printf '{"id":"x#y","repo":null}'     > "$T/reponull/.moj-id"
++mkdir -p "$T/idsemorg" "$T/idsemprob"
++printf '{"id":"#p","repo":"org"}'     > "$T/idsemorg/.moj-id"
++printf '{"id":"org#","repo":"org"}'   > "$T/idsemprob/.moj-id"
+ ( cd "$T/fora" && pkg_root >/dev/null ) && {
+   echo "ABORT: pkg_root achou um .moj-id acima de $T/fora — a fixture 'fora' não está fora de um pacote"; exit 1; }
+ 
+@@ -88,10 +92,6 @@ echo "== caixa-branca: validação final D4 =="
+ caso C C18 semid   ''   1 'id inválido'
+ caso C C19 fora    ''   1 'id inválido'    ../semid
+ 
+-echo "== hipóteses de defeito (XFAIL): contrato <org>#<prob> com org e prob não vazios =="
+-caso H H1 fora     ''   1 'id inválido'    '#'
+-caso H H2 fora     ''   1 'id inválido'    'org#'
+-caso H H3 fora     ''   1 'id inválido'    '#p'
+ 
+ echo "== TDD ciclo 1: nome sem org numa pasta cujo .moj-id não diz a org (ex-XFAIL H4 + T1..T3) =="
+ caso C H4 semrepo   ''   1 ''               foo      # .moj-id sem "repo": nada de '#foo'
+@@ -99,6 +99,14 @@ caso C T1 repovazio ''   1 'não diz a org'  foo      # "repo":"" — o resolve_
+ caso C T2 reponull  ''   1 'não diz a org'  foo      # "repo":null — idem
+ caso C T3 semrepo   ''   0 'x#y|0'                   # sem argumento o id implícito (.id) continua valendo
+ 
++echo "== TDD ciclo 2: o id final tem org E problema não vazios (ex-XFAIL H1..H3 + T4..T6) =="
++caso C H1 fora      ''   1 'id inválido'    '#'
++caso C H2 fora      ''   1 'id inválido'    'org#'
++caso C H3 fora      ''   1 'id inválido'    '#p'
++caso C T4 idsemorg  ''   1 'id inválido'             # id IMPLÍCITO (.id da pasta) = '#p'
++caso C T5 fora      ''   1 'id inválido'    ../idsemprob   # pasta clonada cujo .id = 'org#'
++caso C T6 fora      ''   0 'a#b|1'          'a#b'    # limite: 1 caractere de cada lado ainda vale
++
+ (( xpass )) && echo "  ($xpass hipótese(s) XPASS: o defeito não se manifestou)"
+ echo; echo "RESULT: $pass passed, $fail failed, $xfail xfail"
+ (( fail == 0 ))
