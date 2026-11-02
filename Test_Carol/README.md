@@ -8,7 +8,7 @@
 | Arquivo | `moj`: `sample_off` nas linhas 842–843 (`conf_get` na linha 370, `gate` logo depois de `sample_off`) |
 | Commit | 08782ef |
 | Branch | `test/carol-m04` |
-| Ferramentas | `<bash --version \| head -1>` · `<jq --version>` · `<sistema operacional: Git Bash no Windows>` |
+| Ferramentas | GNU bash, version 5.2.37 · jq-1.8.2 · Windows 11 (Git Bash/MINGW64) |
 | Data | 02/11/2026 |
 | Script | `Test_Carol/sample-off.sh`: teste de unidade, offline, com fixture em `mktemp -d` |
 
@@ -194,7 +194,7 @@ Execução de 01/11/2026 (`evidencias/saida-2026-11-01.txt`): **`RESULT: 32 pass
 
 ## 6. Defeitos (XFAIL)
 
-O oráculo é o requisito (seção 2), e não o código .Na implementação original do moj, os dois casos apresentam os defeitos abaixo. Na implementação local de TDD, ambos foram corrigidos.
+O oráculo é o requisito (seção 2), e não o código. Na implementação original do moj, os dois casos apresentam os defeitos abaixo. Na implementação local de TDD, ambos foram corrigidos.
 
 ### H1: `NÃO` em maiúscula é recusado
 
