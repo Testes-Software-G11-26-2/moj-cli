@@ -1,0 +1,94 @@
+$ bash test/push-exit.sh   # regressão (teste do upstream, não alterado) — CICLO 1 GREEN
+usando: /home/eduardo/testes-g11/moj-cli/moj
+== edição e envio sem mudança
+  ok: edição: rc 0 e 'enviado (edit)'
+  ok: nada mudou: o mesmo envio de novo sai com 0
+== problema novo
+  ok: novo: rc 0 e 'enviado (novo)'
+  ok: novo numa org que já existe (409 no repo-create): rc 0 e cria (antes: 1 calado)
+  ok: criação recusada: rc 1 com a mensagem do servidor
+== a consulta 'já existe?' falhou: rc 1 COM mensagem e nada enviado
+  ok: sessão inválida (401): rc 1, manda rodar 'moj login', nenhum POST
+  ok: sem rede (000): rc 1 com 'não consegui falar', nenhum POST
+  ok: 5xx: rc 1 com o código, nenhum POST
+== nunca 1 calado
+  ok: nenhuma combinação (get × repo-create × create) sai com erro sem mensagem
+
+RESULT: 9 passed, 0 failed
+exit=0
+
+$ bash test/translations.sh   # regressão (teste do upstream, não alterado) — CICLO 1 GREEN
+== pkg_to_json: translations + titles ==
+  ok: translations.en com título/enunciado/editorial/notas
+  ok: es sem arquivo = null (clone ciente apaga)
+  ok: titles do .moj-id
+  ok: PT segue nos campos de sempre
+  ok: enunciado.en.md byte-fiel
+== clone antigo (sem trans_rt, sem tradução local): NÃO manda translations ==
+  ok: sem campo translations
+== clone antigo COM tradução local manda só o que tem (NUNCA null p/ os outros idiomas) ==
+  ok: es presente e en AUSENTE (não apaga o en do servidor)
+== json_to_pkg: o caminho de volta ==
+  ok: enunciado.en.md igual
+  ok: solucao.en.md igual (sem \n final extra)
+  ok: notas en gravadas; nota pt gravada
+  ok: sem arquivo es
+  ok: .moj-id com titles e trans_rt
+== round-trip: pkg_to_json do clone == do original ==
+  ok: translations idênticas
+== moj title --lang ==
+  ok: titles.es gravado
+  ok: sem arg mostra
+
+RESULT: 15 passed, 0 failed
+exit=0
+
+$ bash test/parallel-conf.sh   # regressão (teste do upstream, não alterado) — CICLO 1 GREEN
+== gate: chaves ausentes / válidas passam ==
+  ok: conf vazio passa
+  ok: CPUNEEDED=4 SAMENUMA=y MAXPARALLELTESTS=2 ALLOWPARALLELTEST=n passam
+  ok: conf_get lê as quatro
+== gate: valores inválidos reprovam (a mesma regra do servidor) ==
+  ok: CPUNEEDED=0 reprova
+  ok: CPUNEEDED=65 reprova
+  ok: CPUNEEDED=abc reprova
+  ok: SAMENUMA=yes reprova
+  ok: MAXPARALLELTESTS=0 reprova
+  ok: ALLOWPARALLELTEST=maybe reprova
+  ok: a mensagem diz qual chave
+== conf_set (o que o menu 7/8/9 grava) ==
+  ok: gravou as três
+  ok: vazio remove a linha (default do juiz)
+  ok: gate segue passando
+== moj-judges: subcomando parallel e --parallel-max existem ==
+  ok: moj-judges parallel no dispatch
+  ok: config aceita --parallel-max
+  ok: ajuda cita os dois
+
+RESULT: 16 passed, 0 failed
+exit=0
+
+$ bash test/portabilidade.sh   # regressão (teste do upstream, não alterado) — CICLO 1 GREEN
+== ESTÁTICO: flag só-GNU fora da lib/core.sh ==
+  ok: nenhuma flag só-GNU SEM fallback nos executáveis
+== BSD FALSO: os helpers da core.sh sobrevivem a um base64 da Apple ==
+  ok: encode bin: BSD == GNU
+  ok: round-trip bin sob BSD
+  ok: encode vazio: BSD == GNU
+  ok: round-trip vazio sob BSD
+  ok: encode misto: BSD == GNU
+  ok: round-trip misto sob BSD
+  ok: encode pad3: BSD == GNU
+  ok: round-trip pad3 sob BSD
+  ok: encode pad1: BSD == GNU
+  ok: round-trip pad1 sob BSD
+== BSD FALSO: data (o "date -d" do moj-contest, que agenda a prova) ==
+  (stub: -d recusado; -j -f aceito)
+  ok: data '2026-08-25 14:00': BSD == GNU
+  ok: data '2026-08-25 14:00:30': BSD == GNU
+  ok: o 'date -d' cru realmente falha no BSD
+  ok: o jeito ANTIGO realmente quebra no BSD (rc!=0 ou saída vazia)
+
+RESULT: 15 ok, 0 falha(s)
+exit=0
+

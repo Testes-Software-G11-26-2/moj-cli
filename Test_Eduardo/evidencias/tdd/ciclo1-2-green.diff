@@ -1,0 +1,15 @@
+diff --git a/moj b/moj
+index e257d22..40062af 100755
+--- a/moj
++++ b/moj
+@@ -1467,7 +1467,9 @@ resolve_id(){ local a="${1:-}" r
+   if [[ "$a" == *#* ]]; then printf '%s' "$a"; return 0; fi
+   if [[ -f "$a/.moj-id" ]]; then jq -r '.id // empty' "$a/.moj-id"; return 0; fi
+   r="$(pkg_root)" || die "'$a' não diz a org: use <org>#$a (ou rode dentro da pasta de um problema, que dá a org)."
+-  printf '%s#%s' "$(jq -r '.repo // empty' "$r/.moj-id")" "$a"
++  local o; o="$(jq -r '.repo // empty' "$r/.moj-id")"
++  [[ -n "$o" ]] || die "'$a' não diz a org: o .moj-id de $r não tem \"repo\"; use <org>#$a."
++  printf '%s#%s' "$o" "$a"
+ }
+ # id_arg <regex-do-que-NÃO-é-id> "$@" -> define ID e IDSHIFT (1 = o 1º argumento ERA o id; o chamador faz
+ # o shift). O id é IMPLÍCITO (vem da pasta) quando não há argumento, quando o 1º é uma opção (-…) ou quando

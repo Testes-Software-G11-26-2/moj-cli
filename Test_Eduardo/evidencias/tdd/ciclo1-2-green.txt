@@ -1,0 +1,36 @@
+$ bash Test_Eduardo/id-arg.sh   # TDD ciclo 1 — GREEN (2026-11-02, commit base 904befb + checagem do repo no resolve_id)
+== caixa-preta: sem argumento / opção inicial ==
+  ok: C01 — obtido: rc0 org#p1|0
+  ok: C02 — obtido: rc0 org#p1|0
+  ok: C03 — obtido: rc1 stderr="moj: falta o <id>: rode dentro da pasta de um problema (a que tem o .moj-id) ou passe <org>#<prob>."
+  ok: C04 — obtido: rc0 org#p1|0
+  ok: C05 — obtido: rc0 org#p1|0
+  ok: C06 — obtido: rc0 org#a-b|1
+== caixa-preta: id explícito ==
+  ok: C07 — obtido: rc0 org#x|1
+  ok: C08 — obtido: rc0 org#p9|1
+  ok: C09 — obtido: rc1 stderr="moj: 'x' não diz a org: use <org>#x (ou rode dentro da pasta de um problema, que dá a org)."
+  ok: C10 — obtido: rc0 org2#p2|1
+== caixa-branca: MC/DC de (C ∧ D ∧ E) e limites da regex ==
+  ok: C11 — obtido: rc0 org#p1|0
+  ok: C12 — obtido: rc0 org#on|1
+  ok: C13 — obtido: rc0 org#foo|1
+  ok: C14 — obtido: rc1 stderr="moj: 'on' não diz a org: use <org>#on (ou rode dentro da pasta de um problema, que dá a org)."
+  ok: C15 — obtido: rc0 org#ON|1
+  ok: C16 — obtido: rc0 org#onn|1
+  ok: C17 — obtido: rc0 org#p9|1
+== caixa-branca: validação final D4 ==
+  ok: C18 — obtido: rc1 stderr="moj: id inválido: '' (esperado <org>#<prob>)"
+  ok: C19 — obtido: rc1 stderr="moj: id inválido: '' (esperado <org>#<prob>)"
+== hipóteses de defeito (XFAIL): contrato <org>#<prob> com org e prob não vazios ==
+  XFAIL: H1 — esperado: rc1 id inválido — obtido: rc0 #|1
+  XFAIL: H2 — esperado: rc1 id inválido — obtido: rc0 org#|1
+  XFAIL: H3 — esperado: rc1 id inválido — obtido: rc0 #p|1
+== TDD ciclo 1: nome sem org numa pasta cujo .moj-id não diz a org (ex-XFAIL H4 + T1..T3) ==
+  ok: H4 — obtido: rc1 stderr="moj: 'foo' não diz a org: o .moj-id de /tmp/tmp.guS9vLEqAr/semrepo não tem "repo"; use <org>#foo."
+  ok: T1 — obtido: rc1 stderr="moj: 'foo' não diz a org: o .moj-id de /tmp/tmp.guS9vLEqAr/repovazio não tem "repo"; use <org>#foo."
+  ok: T2 — obtido: rc1 stderr="moj: 'foo' não diz a org: o .moj-id de /tmp/tmp.guS9vLEqAr/reponull não tem "repo"; use <org>#foo."
+  ok: T3 — obtido: rc0 x#y|0
+
+RESULT: 23 passed, 0 failed, 3 xfail
+exit=0
