@@ -186,7 +186,7 @@ Execução de 2026-10-23 (`evidencias/saida-2026-10-23.txt`): **`RESULT: 19 pass
 
 ### Cobertura de linhas (kcov)
 
-Comando: `kcov --include-path="$PWD/moj" Test_Eduardo/evidencias/cobertura ./Test_Eduardo/id-arg.sh`. O kcov roda **o script** (executável, com shebang `#!/bin/bash`), e não `bash <script>`. Se rodar `bash <script>`, ele mede o binário `/usr/bin/bash` e o relatório sai vazio. O relatório fica em `evidencias/cobertura/id-arg.sh.7f1210668999291f/` (`coverage.json`, `cobertura.xml`, `index.html`). Abra o `index.html` no navegador para ver o HTML.
+Comando: `kcov --include-path="$PWD/moj" Test_Eduardo/evidencias/cobertura ./Test_Eduardo/id-arg.sh`. O kcov roda **o script** (executável, com shebang `#!/bin/bash`), e não `bash <script>`. Se rodar `bash <script>`, ele mede o binário `/usr/bin/bash` e o relatório sai vazio. O relatório fica em `evidencias/cobertura/id-arg.sh.7f1210668999291f/` (`coverage.json`, `cobertura.xml`, `index.html`). Abra o `index.html` no navegador para ver o HTML. O symlink que o kcov cria na raiz da pasta (`evidencias/cobertura/id-arg.sh`, com caminho absoluto da máquina) foi removido do repositório, porque em outro clone ele aponta para um caminho que não existe.
 
 Este relatório considera **só** as linhas de `pkg_root`, `resolve_id` e `id_arg` (1453–1480). O percentual global do arquivo `moj` não interessa aqui, porque o resto do arquivo não é alvo deste teste.
 
