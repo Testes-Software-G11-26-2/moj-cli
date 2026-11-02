@@ -861,7 +861,7 @@ gate(){ local d="$1" ok=1
 # listada precisa do driver scripts/<lang>/compile.sh (é ele que traz o main). A MESMA regra do
 # validate-problem.sh (conf_function_sane) — melhor saber antes de subir. Ids canônicos: py3 → py.
 fn_lang_canon(){ case "$1" in py2|py3) printf py;; cc|cxx|c++) printf cpp;; *) printf '%s' "$1";; esac; }
-function_conf_gate(){ local d="$1" ok=1 v l c dirs=" " f
+function_conf_gate(){ local d="$1" ok=1 v l c dirs=" " f listed=" "     # NOVO 1
   v="$(conf_get "$d" FUNCTION_LANGS | tr 'A-Z' 'a-z')"; v="${v%%#*}"
   [[ -n "${v//[[:space:],]/}" ]] || return 0
   for f in "$d"/scripts/*/compile.sh; do [[ -f "$f" ]] && dirs+="$(fn_lang_canon "$(basename "$(dirname "$f")")") "; done
@@ -869,9 +869,14 @@ function_conf_gate(){ local d="$1" ok=1 v l c dirs=" " f
   for l in "${ls_[@]}"; do
     [[ -n "$l" ]] || continue
     c="$(fn_lang_canon "$l")"
+    listed+="$c "
     [[ "$c" =~ ^[a-z0-9]{1,16}$ ]] || { echo "  ⚠ FUNCTION_LANGS: '$l' não é id de linguagem" >&2; ok=0; continue; }
     [[ "$dirs" == *" $c "* ]] || { echo "  ⚠ FUNCTION_LANGS lista $c, mas falta scripts/$c/compile.sh (o driver com o main)" >&2; ok=0; }
   done
+  local -a dl_; IFS=' ' read -ra dl_ <<<"$dirs"                          # NOVO 3
+  for f in "${dl_[@]}"; do                                               # NOVO 3
+    [[ "$listed" == *" $f "* ]] || echo "  ⚠ scripts/$f/compile.sh existe, mas $f não está em FUNCTION_LANGS" >&2   # NOVO 3
+  done                                                                   # NOVO 3
   [[ $ok -eq 1 ]]; }
 # parallel_conf_gate <dir> — as chaves de paralelismo do conf (CPUNEEDED 1..64, SAMENUMA y/n,
 # MAXPARALLELTESTS inteiro ≥ 1, ALLOWPARALLELTEST y/n): valor inválido reprova no servidor
