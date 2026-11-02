@@ -1459,7 +1459,7 @@ pkg_root(){ local d; d="$(cd "${1:-.}" 2>/dev/null && pwd -P)" || return 1
 # resolve_id [arg] -> <org>#<prob>. Vazio = o da pasta do problema; com '#' = ele mesmo; pasta clonada = o
 # dela; nome SEM a org = <org da pasta atual>#nome. ⚠ Use `x="$(resolve_id …)"` em comando SEPARADO do
 # `local`: com `local x="$(…)"` o die do subshell não derruba o comando.
-resolve_id(){ local a="${1:-}" r
+resolve_id(){ local a="${1:-}" r o
   if [[ -z "$a" ]]; then
     r="$(pkg_root)" || die "falta o <id>: rode dentro da pasta de um problema (a que tem o .moj-id) ou passe <org>#<prob>."
     jq -r '.id // empty' "$r/.moj-id"; return 0
@@ -1467,7 +1467,7 @@ resolve_id(){ local a="${1:-}" r
   if [[ "$a" == *#* ]]; then printf '%s' "$a"; return 0; fi
   if [[ -f "$a/.moj-id" ]]; then jq -r '.id // empty' "$a/.moj-id"; return 0; fi
   r="$(pkg_root)" || die "'$a' não diz a org: use <org>#$a (ou rode dentro da pasta de um problema, que dá a org)."
-  local o; o="$(jq -r '.repo // empty' "$r/.moj-id")"
+  o="$(mid "$r" repo)"    # a org do nome sem org; "repo" ausente, null ou "" = a pasta NÃO diz a org
   [[ -n "$o" ]] || die "'$a' não diz a org: o .moj-id de $r não tem \"repo\"; use <org>#$a."
   printf '%s#%s' "$o" "$a"
 }
