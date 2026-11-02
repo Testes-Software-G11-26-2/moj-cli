@@ -6,10 +6,10 @@
 |---|---|
 | Método | M04 `sample_off`. Também exercita a função que ele chama, `conf_get`, e o `gate`, que o usa |
 | Arquivo | `moj`: `sample_off` nas linhas 842–843 (`conf_get` na linha 370, `gate` logo depois de `sample_off`) |
-| Commit |  08782ef |
+| Commit | 08782ef |
 | Branch | `test/carol-m04` |
-| Ferramentas | GNU bash, version 5.2.37 · jq-1.8.2 · Windows 11 (Git Bash/MINGW64) |
-| Data | 2026-11-01 |
+| Ferramentas | `<bash --version \| head -1>` · `<jq --version>` · `<sistema operacional: Git Bash no Windows>` |
+| Data | `<AAAA-MM-DD da execução que gerou as evidências>` |
 | Script | `Test_Carol/sample-off.sh`: teste de unidade, offline, com fixture em `mktemp -d` |
 
 Para reproduzir, rode na raiz do `moj-cli`:
@@ -135,7 +135,7 @@ O xtrace mostra **cada condição** do OR em uma linha própria (`sample_off:843
 
 ## 5. Resultados
 
-Execução de 2026-11-01 (`evidencias/saida-2026-11-01.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
+Execução de `<AAAA-MM-DD>` (`evidencias/saida-<AAAA-MM-DD>.txt`): **`RESULT: 32 passed, 0 failed, 2 xfail`**, exit 0.
 
 | ID | conf | esperado | obtido | status | critério |
 |---|---|---|---|---|---|
@@ -174,10 +174,9 @@ Execução de 2026-11-01 (`evidencias/saida-2026-11-01.txt`): **`RESULT: 32 pass
 | H1 | `SAMPLE=NÃO` | rc0 | rc1 | XFAIL | defeito H1 |
 | H2 | `SAMPLE=no` sem newline final | rc0 | rc1 | XFAIL | defeito H2 |
 
+Confira os valores da coluna "obtido" com o arquivo `evidencias/saida-<data>.txt` antes de entregar.
 
 ![Execução completa — 32 passed, 0 failed, 2 xfail](evidencias/img/execucao-completa.png)
-![Execução completa — 32 passed, 0 failed, 2 xfail](evidencias/img/execucao-completa2.png)
-
 
 ### Traces dos pares MC/DC
 
@@ -233,7 +232,7 @@ O oráculo é o requisito (seção 2), e não o código. Os dois casos falham ho
 
   Testei essa alteração numa cópia da função: a chave da última linha passa a ser lida e o caso normal continua igual. Este defeito é do **M03 (`conf_get`)**, então combine com quem fez o M03 para o relatório dele dizer a mesma coisa.
 
-![H2 — SAMPLE=no sem newline final](evidencias/img/xfail-H1.png)
+![H2 — SAMPLE=no sem newline final](evidencias/img/xfail-H2.png)
 
 ## 7. Lacunas e limitações
 
@@ -244,7 +243,160 @@ O oráculo é o requisito (seção 2), e não o código. Os dois casos falham ho
 - **Script do repo, não o artefato:** os testes rodam o `moj` do repo, e não o `dist/moj` que o `mkdist.sh` gera.
 - **Caminhos temporários nos traces:** os traces trazem caminhos do `mktemp` (`/tmp/tmp.XXXX`), que mudam a cada execução.
 
-## 8. Uso de Inteligência Artificial
 
-- **Ferramenta:** Claude (chat).
+## 8. Aplicação de TDD — dois ciclos
+
+O TDD foi aplicado à correção dos defeitos H1 e H2 identificados no M04. Como o código e os testes já existiam, os ciclos representam manutenção guiada por testes, e não o desenvolvimento original da função.
+
+Todas as alterações ficaram dentro de `Test_Carol`. O arquivo `sample-off-tdd.sh` contém as implementações locais corrigidas. O teste carrega esse arquivo **após** carregar o `moj`:
+
+```bash
+MOJ_CLI_LIB_ONLY=1 MOJ_CONFIG_DIR="$T/cfg" source "$CLI/moj" 2>/dev/null
+source "$HERE/sample-off-tdd.sh"
+```
+
+### 8.1. Ciclo 1 — aceitar `SAMPLE=NÃO`
+
+#### RED — demonstrar a falha
+
+H1 foi promovido de falha esperada para teste obrigatório, trocando:
+
+```bash
+caso H H1 0 'SAMPLE=NÃO\n'
+```
+
+por:
+
+```bash
+caso C H1 0 'SAMPLE=NÃO\n'
+```
+
+O retorno esperado era 0, mas a função retornou 1. O `tr 'A-Z' 'a-z'` normalizava as letras ASCII e mantinha `Ã` maiúsculo, produzindo `nÃo`. H2 permaneceu como XFAIL, reservado para o segundo ciclo.
+
+**Resultado:** `32 passed, 1 failed, 1 xfail`; código de saída **1**.
+
+![Ciclo 1 — RED: H1 falha](evidencias/img/tdd-ciclo1-red.png)
+
+#### GREEN — implementar a correção
+
+Foi criada a versão local de `sample_off` em `sample-off-tdd.sh`, acrescentando após a normalização:
+
+```bash
+v="${v//Ã/ã}"
+```
+
+A substituição explícita permite reconhecer `NÃO`, sem depender de uma conversão de caixa Unicode pelo locale. As seis comparações com os sinônimos de falso foram mantidas.
+
+**Resultado:** `33 passed, 0 failed, 1 xfail`; código de saída **0**. H1 passou e H2 continuou como falha esperada.
+
+![Ciclo 1 — GREEN: H1 passa](evidencias/img/tdd-ciclo1-green.png)
+
+#### REFACTOR — separar a normalização
+
+A normalização foi extraída para `sample_normalize`, separando o tratamento da entrada da comparação dos valores aceitos:
+
+```bash
+sample_normalize(){
+  local v
+  v="$(printf '%s' "$1" | tr 'A-Z' 'a-z' | tr -d '[:space:]')"
+  printf '%s' "${v//Ã/ã}"
+}
+
+sample_off(){
+  local v
+  v="$(sample_normalize "$(conf_get "$1" SAMPLE)")"
+  [[ "$v" == no || "$v" == n || "$v" == nao ||
+     "$v" == não || "$v" == false || "$v" == 0 ]]
+}
+```
+
+A suíte foi executada novamente para conferir que a reorganização preservou o comportamento.
+
+**Resultado:** `33 passed, 0 failed, 1 xfail`; código de saída **0**.
+
+![Ciclo 1 — REFACTOR: testes permanecem verdes](evidencias/img/tdd-ciclo1-refactor.png)
+
+### 8.2. Ciclo 2 — ler a última linha sem newline
+
+#### RED — demonstrar a falha
+
+H2 foi promovido a teste obrigatório:
+
+```bash
+caso C H2 0 'SAMPLE=no'
+```
+
+A ausência de `\n` é intencional. A entrada contém um valor válido, mas o laço original de `conf_get` não processava a última linha quando `read` retornava falha ao encontrar EOF sem newline.
+
+**Resultado:** `33 passed, 1 failed, 0 xfail`; código de saída **1**. H2 falhou e H1 continuou passando, preservando a correção do primeiro ciclo.
+
+![Ciclo 2 — RED: H2 falha e H1 passa](evidencias/img/tdd-ciclo2-red.png)
+
+#### GREEN — corrigir a leitura local
+
+Foi acrescentada em `sample-off-tdd.sh` uma versão local de `conf_get`, função do M03 usada pelo M04:
+
+```bash
+conf_get(){
+  local d="$1" k="$2" line
+
+  [[ -f "$d/conf" ]] || return 0
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ "$line" == "$k="* ]]; then
+      line="${line#"$k"=}"
+      line="${line%\"}"
+      printf '%s' "${line#\"}"
+      return 0
+    fi
+  done < "$d/conf"
+
+  return 0
+}
+```
+
+A condição `|| [[ -n "$line" ]]` permite processar o conteúdo da última linha mesmo quando `read` retorna falha pela ausência de newline. A primeira ocorrência da chave continua prevalecendo, e a ausência de chave ou arquivo mantém o retorno 0 de `conf_get`, sem saída.
+
+**Resultado:** `34 passed, 0 failed, 0 xfail`; código de saída **0**.
+
+![Ciclo 2 — GREEN: H1 e H2 passam](evidencias/img/tdd-ciclo2-green.png)
+
+#### REFACTOR — simplificar o registro dos resultados
+
+Como H1 e H2 passaram a ser obrigatórios, foram removidos os contadores `xfail` e `xpass` e o ramo XFAIL/XPASS de `reg`. A função passou a registrar somente aprovação ou falha. A assinatura foi mantida para preservar as chamadas existentes. O título dos casos H1 e H2 foi atualizado para identificá-los como regressões TDD.
+
+O resumo final passou a ser:
+
+```bash
+echo; echo "RESULT: $pass passed, $fail failed"
+(( fail == 0 ))
+```
+
+**Resultado:** `34 passed, 0 failed`; código de saída **0**.
+
+![Ciclo 2 — REFACTOR: 34 testes aprovados](evidencias/img/tdd-ciclo2-refactor.png)
+
+### 8.3. Resumo das execuções
+
+| Ciclo | Etapa | Aprovados | Falhas | XFAIL | Código de saída |
+|---|---|---:|---:|---:|---:|
+| 1 | RED | 32 | 1 | 1 | 1 |
+| 1 | GREEN | 33 | 0 | 1 | 0 |
+| 1 | REFACTOR | 33 | 0 | 1 | 0 |
+| 2 | RED | 33 | 1 | 0 | 1 |
+| 2 | GREEN | 34 | 0 | 0 | 0 |
+| 2 | REFACTOR | 34 | 0 | removido do resumo | 0 |
+
+Para reproduzir a execução final, na raiz do repositório:
+
+```bash
+bash Test_Carol/sample-off.sh
+echo "Código de saída: $?"
+```
+
+Resultado esperado: **34 passed, 0 failed**, código de saída **0**.
+
+## 9. Uso de Inteligência Artificial
+
+- **Ferramenta:** Claude (chat) e Codex.
 - **O que foi feito com apoio da IA:** a análise do código de `sample_off` e `conf_get`, a derivação das partições, dos valores-limite e dos pares MC/DC, a escrita do script `sample-off.sh` e o rascunho deste relatório.
