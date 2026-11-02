@@ -1,9 +1,4 @@
-#!/bin/bash
-# sample-off.sh — M04 `sample_off` (moj, linhas 842–843): o conf do pacote declara SAMPLE=no (sem exemplos)?
-# Testes de unidade derivados por caixa-preta (partições + limites) e caixa-branca (decisão D1 = OR de seis
-# comparações, MC/DC). C01..C32 entram no exit code; H1..H2 são defeitos observados (XFAIL: o esperado é
-# falharem hoje). Oráculo: o CÓDIGO DE SAÍDA da função (0 = sem exemplos, 1 = com exemplos); ela não imprime nada.
-# Sem rede. Uso: bash Test_Carol/sample-off.sh [--trace]  (--trace grava evidencias/traces/<ID>.trace)
+
 set -u
 HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"; CLI="$(cd "$HERE/.." && pwd)"
 TRACE=0; [[ "${1:-}" == --trace ]] && TRACE=1
