@@ -861,7 +861,13 @@ gate(){ local d="$1" ok=1
 # listada precisa do driver scripts/<lang>/compile.sh (é ele que traz o main). A MESMA regra do
 # validate-problem.sh (conf_function_sane) — melhor saber antes de subir. Ids canônicos: py3 → py.
 fn_lang_canon(){ case "$1" in py2|py3) printf py;; cc|cxx|c++) printf cpp;; *) printf '%s' "$1";; esac; }
-function_conf_gate(){ local d="$1" ok=1 v l c dirs=" " f listed=" "     # NOVO 1
+   # fn_drivers_fora_da_lista <ids canônicos dos drivers> <ids canônicos declarados> — avisa (sem reprovar) o driver que
+   # existe em scripts/ mas não está em FUNCTION_LANGS (o mesmo slot serve p/ ban e OpenMP/MPI).
+   fn_drivers_fora_da_lista(){ local c; local -a dr_; IFS=' ' read -ra dr_ <<<"$1"
+     for c in "${dr_[@]}"; do
+       [[ "$2" == *" $c "* ]] || echo "  ⚠ scripts/$c/compile.sh existe, mas $c não está em FUNCTION_LANGS" >&2
+     done; }
+function_conf_gate(){ local d="$1" ok=1 v l c dirs=" " f listed=" "    
   v="$(conf_get "$d" FUNCTION_LANGS | tr 'A-Z' 'a-z')"; v="${v%%#*}"
   [[ -n "${v//[[:space:],]/}" ]] || return 0
   for f in "$d"/scripts/*/compile.sh; do [[ -f "$f" ]] && dirs+="$(fn_lang_canon "$(basename "$(dirname "$f")")") "; done
@@ -873,10 +879,18 @@ function_conf_gate(){ local d="$1" ok=1 v l c dirs=" " f listed=" "     # NOVO 1
     [[ "$c" =~ ^[a-z0-9]{1,16}$ ]] || { echo "  ⚠ FUNCTION_LANGS: '$l' não é id de linguagem" >&2; ok=0; continue; }
     [[ "$dirs" == *" $c "* ]] || { echo "  ⚠ FUNCTION_LANGS lista $c, mas falta scripts/$c/compile.sh (o driver com o main)" >&2; ok=0; }
   done
-  local -a dl_; IFS=' ' read -ra dl_ <<<"$dirs"                          # NOVO 3
-  for f in "${dl_[@]}"; do                                               # NOVO 3
-    [[ "$listed" == *" $f "* ]] || echo "  ⚠ scripts/$f/compile.sh existe, mas $f não está em FUNCTION_LANGS" >&2   # NOVO 3
-  done                                                                   # NOVO 3
+  
+  local -a dl_; IFS=' ' read -ra dl_ <<<"$dirs"                          
+  for f in "${dl_[@]}"; do
+    [[ "$listed" == *" $f "* ]] && continue # Já está listado, ignora
+    
+    case "$f" in
+      ban|mpi|openmp) 
+      *) 
+        echo "  ⚠ scripts/$f/compile.sh existe, mas $f não está em FUNCTION_LANGS" >&2 
+        ;;
+    esac
+  done                                                                   
   [[ $ok -eq 1 ]]; }
 # parallel_conf_gate <dir> — as chaves de paralelismo do conf (CPUNEEDED 1..64, SAMENUMA y/n,
 # MAXPARALLELTESTS inteiro ≥ 1, ALLOWPARALLELTEST y/n): valor inválido reprova no servidor
